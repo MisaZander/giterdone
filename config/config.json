@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "guest",
+    "password": "guest",
+    "database": "giterdone",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "guest",
+    "password": "guest",
+    "database": "giterdone",
+    "host": "localhost",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "socketPath": "/var/run/mysqld/mysqld.sock"
+    }
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
