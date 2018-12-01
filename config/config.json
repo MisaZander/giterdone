@@ -1,26 +1,21 @@
 {
   "development": {
-    "username": "guest",
-    "password": "guest",
-    "database": "giterdone",
-    "host": "127.0.0.1",
+    "username": "root",
+    "password": null,
+    "database": "exampledb",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
-    "username": "guest",
-    "password": "guest",
-    "database": "giterdone",
-    "host": "localhost",
-    "dialect": "mysql",
-    "dialectOptions": {
-      "socketPath": "/var/run/mysqld/mysqld.sock"
-    }
-  },
-  "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "database": "testdb",
+    "host": "localhost",
+    "dialect": "mysql",
+    "logging": false
+  },
+  "production": {
+    "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   }
 }
