@@ -29,29 +29,6 @@ module.exports = function(app) {
   app.get(
     "/",
     function(req, res, next) {
-      //console.log(req.session.id);
-      // db.Session.findOne({
-      //   where: {
-      //     sid: req.sessionID
-      //   }
-      // })
-      //   .then(function(dbData) {
-      //     console.log(req.sessionID);
-      //     if () {
-      //       console.log("User ID: " + dbData.userId);
-      //     }
-      //     res.sendFile(
-      //       path.join(__dirname, "..", "public", "html", "index.html")
-      //     );
-      //   })
-      //   .catch(function(err) {
-      //     if (err) {
-      //       throw err;
-      //     }
-      //     //console.log(err);
-      //     res.end("Oops");
-      //   });
-
       db.Session.findOne({
         where: {
           sid: req.sessionID
@@ -62,6 +39,7 @@ module.exports = function(app) {
           next();
         } else {
           console.log("You session userID is: " + dbData.userId);
+          req.session.userId = dbData.userId;
           res.sendFile(
             path.join(__dirname, "..", "public", "html", "index.html")
           );
