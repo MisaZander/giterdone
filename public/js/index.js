@@ -6,45 +6,73 @@ var $exampleList = $("#example-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
-    return $.ajax({
+  saveToDo: function(toDoObject) {
+    $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/todos",
+      data: toDoObject
+    }).then(function() {
+      location.reload();
     });
   },
-  getExamples: function() {
+  saveErrand: function(errandObject) {
+    $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/errands",
+      data: errandObject
+    }).then(function() {
+      location.reload();
+    });
+  },
+  saveCorr: function(corrObject) {
+    $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/correspondence",
+      data: corrObject
+    }).then(function() {
+      location.reload();
+    });
+  },
+  getTasks: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteTask: function(table, task) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/" + table + "/" + task,
       type: "DELETE"
     });
   }
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
-      var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+var refreshTasks = function() {
+  API.getTasks().then(function(res) {
+    var $todoPopulate = res.todos(function() {
+      //this would populate the ToDo Table and then the following lines will create the list items
+      var $table = $("<table>");
+      for (var i = 0; i < res.todos.length; i++){
+        var $li = $("<li>");
+        $li.attr()
+      }
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": example.id
-        })
-        .append($a);
+      var $buttonComplete = $("<button>");
+        $("<button>").attr("id", "")
+        .text("ｘ");
 
+      $li.append($button);
+        
       var $button = $("<button>")
         .addClass("btn btn-danger float-right delete")
         .text("ｘ");
@@ -64,18 +92,18 @@ var refreshExamples = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
+  var taskObject = {
     text: $exampleText.val().trim(),
     description: $exampleDescription.val().trim()
   };
 
-  if (!(example.text && example.description)) {
+  if (!(taskObject.text && taskObject.description)) {
     alert("You must enter an example text and description!");
     return;
   }
 
   API.saveExample(example).then(function() {
-    refreshExamples();
+    refreshTasks();
   });
 
   $exampleText.val("");
