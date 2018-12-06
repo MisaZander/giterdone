@@ -21,6 +21,7 @@
   </head>
 
   <body>
+    <div class="container">
     <nav>
       <div class="nav-wrapper">
         <a href="#" class="brand-logo center">
@@ -145,47 +146,52 @@
           </form>
           </div>
           <!-- Modal Structure -->
+
     <div id="corrModal" class="modal">
             <div class="modal-content">
-              <h4>Add a TO-DO item here</h4>
+              <h4>Add a CORRESPONDENCE item here</h4>
       
               <div class="row">
                 <div class="col s12">
                   <div class="row">
                     <div class="input-field col s12">
-                      <i class="material-icons prefix">textsms</i>
+                      <!-- <i class="material-icons prefix">textsms</i> -->
                       <form id= "correspondenceForm">
                       <input
                         type="text"
-                        id="autocomplete-input"
+                        id="inputCorrData"
                         class="autocomplete"
+                        placeholder="Type what you need to discuss with someone here..."
                       />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="input-field col s12">
-                <select>
-                  <option value="" disabled selected>Choose your Priority</option>
-                  <option value="1">Priority 1</option>
-                  <option value="2">Priority 2</option>
-                  <option value="3">Priority 3</option>
+                <select id="inputCorrPriority">
+                  <option value="" disabled>Choose your Priority</option>
+                  <option value="1">Low</option>
+                  <option value="2" selected>Normal</option>
+                  <option value="3">High</option>
                 </select>
+                <label>Choose your priority</label>
               </div>
             </div>
-            <div id = "addTodo" class="modal-footer">
-                  <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+            <div class="modal-footer">
+                  <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat"
                     >ADD ITEM</a
-                  >
+                  > -->
+                  <button type="submit" class="waves-effect waves-green btn-flat green" id="inputCorrSubmit">ADD ITEM</button>
                 </div>
       
             <div id = "closeTodo" class="modal-footer">
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat red"
                 >CLOSE</a
               >
             </div>
           </form>
           </div>
+</div>
     <script>
       $(document).ready(function() {
         $(".modal").modal();
