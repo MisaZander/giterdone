@@ -196,4 +196,34 @@ module.exports = function(app) {
       }
     });
   });
+
+  app.delete("/api/todos", function(req, res) {
+    db.Todo.destroy({
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbResult) {
+      res.status(200).json(dbResult);
+    });
+  });
+
+  app.delete("/api/errands", function(req, res) {
+    db.Errand.destroy({
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbResult) {
+      res.status(200).json(dbResult);
+    });
+  });
+
+  app.delete("/api/corrs", function(req, res) {
+    db.Corr.destroy({
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbResult) {
+      res.status(200).json(dbResult);
+    });
+  });
 };
