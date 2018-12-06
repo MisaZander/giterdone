@@ -1,9 +1,3 @@
-// Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
-
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveToDo: function(toDoObject) {
@@ -56,34 +50,78 @@ var API = {
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
+// refreshTasks takes the response from the db and creates our tables, then it fills them in
 var refreshTasks = function() {
   API.getTasks().then(function(res) {
-    var $todoPopulate = res.todos(function() {
-      //this would populate the ToDo Table and then the following lines will create the list items
+    res.todos(function() {
+      //creates a table for the to do section
       var $table = $("<table>");
-      for (var i = 0; i < res.todos.length; i++){
+      $table.attr("id", "todoTable");
+      for (var i = 0; i < res.todos.length; i++) {
+        //creates delete button
+        var tRow = $("<tr>");
+        var $buttonDelete = $("<button>");
+        $buttonDelete.attr("id", "close" + i).text("ｘ");
+        tRow.append($buttonDelete);
+        //creates list item
         var $li = $("<li>");
-        $li.attr()
+        $li.html("Item " + i + ": " + res.todos[i]);
+        $li.attr("id", "itemId" + i);
+        tRow.append($li);
+        //create complete button
+        var $buttonComplete = $("<button>");
+        $buttonComplete.attr("id", "complete" + i).text("Complete");
+        tRow.append($buttonComplete);
+        $table.append(tRow);
       }
-
-      var $buttonComplete = $("<button>");
-        $("<button>").attr("id", "")
-        .text("ｘ");
-
-      $li.append($button);
-        
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
-
-      $li.append($button);
-
-      return $li;
+      $("#inputTodo").prepend($table);
     });
-
-    $exampleList.empty();
-    $exampleList.append($examples);
+    res.errands(function() {
+      //creates a table for the errands section
+      var $table = $("<table>");
+      $table.attr("id", "errandsTable");
+      for (var i = 0; i < res.errands.length; i++) {
+        //creates delete button
+        var tRow = $("<tr>");
+        var $buttonDelete = $("<button>");
+        $buttonDelete.attr("id", "close" + i).text("ｘ");
+        tRow.append($buttonDelete);
+        //creates list item
+        var $li = $("<li>");
+        $li.html("Item " + i + ": " + res.errands[i]);
+        $li.attr("id", "itemId" + i);
+        tRow.append($li);
+        //create complete button
+        var $buttonComplete = $("<button>");
+        $buttonComplete.attr("id", "complete" + i).text("Complete");
+        tRow.append($buttonComplete);
+        $table.append(tRow);
+      }
+      $("#inputErrands").prepend($table);
+    });
+    res.correspondence(function() {
+      //creates a table for the correspondence section
+      var $table = $("<table>");
+      $table.attr("id", "CorrTable");
+      for (var i = 0; i < res.correspondence.length; i++) {
+        //creates delete button
+        var tRow = $("<tr>");
+        var $buttonDelete = $("<button>");
+        $buttonDelete.attr("id", "close" + i).text("ｘ");
+        tRow.append($buttonDelete);
+        //creates list item
+        var $li = $("<li>");
+        $li.html("Item " + i + ": " + res.correspondence[i]);
+        $li.attr("id", "itemId" + i);
+        tRow.append($li);
+        //create complete button
+        var $buttonComplete = $("<button>");
+        $buttonComplete.attr("id", "complete" + i).text("Complete");
+        tRow.append($buttonComplete);
+        $table.append(tRow);
+      }
+      $("#inputCorr").prepend($table);
+    });
   });
 };
 
