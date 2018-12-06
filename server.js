@@ -1,6 +1,7 @@
 require("dotenv").config();
 var express = require("express");
-var exphbs = require("express-handlebars");
+var session = require("express-session");
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 var db = require("./models");
 
@@ -12,14 +13,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
+//Session stuff
+var sessionStore = new SequelizeStore({
+  db: db.sequelize,
+  table: "Session",
+  checkExpirationInterval: 15 * 60 * 1000, //Every 15 min
+  expiration: 1 * 60 * 60 * 1000, //1 hour
+  extendDefaultFields: function(defaults, session) {
+    return {
+      expires: defaults.expires,
+      data: defaults.data,
+      userId: session.userId
+    };
+  }
+});
+
+app.use(
+  session({
+    name: "userSession",
+    secret: "keyboard cat",
+    store: sessionStore,
+    resave: false,
+    proxy: false,
+    saveUninitialized: true
   })
 );
-app.set("view engine", "handlebars");
 
 // Routes
 require("./routes/apiRoutes")(app);
