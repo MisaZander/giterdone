@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Import Google Icon Font -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">
+          <i class="large material-icons">check GIT-ER-DONE</i></a
+        >
+        <ul id="nav-mobile" class="left hide-on-med-and-down"></ul>
+      </div>
+    </nav>
+
+    <form action="#" id= "inputTodo">
+      <p>
+        <label>
+          <input type="checkbox" />
+          <a
+            data-target="modal1"
+            class="modal-trigger btn-floating btn-large waves-effect waves-light red"
+            ><i class="material-icons">add</i></a
+          >
+          <button class="btn">TO-DO</button>
+        </label>
+      </p>
+    </form>
+    <form action="#">
+      <p>
+        <label>
+          <input type="checkbox" />
+          <a
+            data-target="modal1"
+            class="btn-floating btn-large waves-effect waves-light red modal-trigger"
+            ><i class="material-icons">add</i></a
+          >
+          <button class="btn">ERRANDS</button>
+        </label>
+      </p>
+    </form>
+    <form action="#">
+      <p>
+        <label>
+          <input type="checkbox" />
+          <a
+            data-target="modal1"
+            class="btn modal-trigger btn-floating btn-large waves-effect waves-light red"
+            ><i class="material-icons">add</i></a
+          >
+          <button class="btn">CORRESPONDENCE</button>
+        </label>
+      </p>
+    </form>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Add a TO-DO item here</h4>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">textsms</i>
+                <input
+                  type="text"
+                  id="autocomplete-input"
+                  class="autocomplete"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-field col s12">
+          <select>
+            <option value="" disabled selected>Choose your Priority</option>
+            <option value="1">Priority 1</option>
+            <option value="2">Priority 2</option>
+            <option value="3">Priority 3</option>
+          </select>
+        </div>
+      </div>
+      <div id = "addTodo" class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+              >ADD ITEM</a
+            >
+          </div>
+
+      <div id = "closeTodo" class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+          >CLOSE</a
+        >
+      </div>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $(".modal").modal();
+      });
+      $(document).ready(function() {
+        $("select").formSelect();
+      });
+    </script>
+  </body>
+</html>
