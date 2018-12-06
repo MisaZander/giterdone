@@ -53,7 +53,7 @@
   class="btn modal-trigger btn-floating btn-large waves-effect waves-light red"
   ><i class="material-icons">add</i></a
 >
-<button class="btn modal-trigger" data-target="corrModal">CORRESPONDENCE</button> <hr>
+<button class="btn modal-trigger" data-target="corrModal">ADD CORRESPONDENCE</button> <hr>
   
     <!-- Modal Structure -->
     <div id="todoModal" class="modal">
@@ -64,40 +64,44 @@
           <div class="col s12">
             <div class="row">
               <div class="input-field col s12">
-                <i class="material-icons prefix">textsms</i>
+                <!-- <i class="material-icons prefix">textsms</i> -->
                 <form id= "todoForm">
                 <input
                   type="text"
-                  id="autocomplete-input"
+                  id="inputTodoData"
                   class="autocomplete"
+                  placeholder="Type what you need to do here..."
                 />
               </div>
             </div>
           </div>
         </div>
-        <div class="input-field col s12">
-          <select>
-            <option value="" disabled selected>Choose your Priority</option>
-            <option value="1">Priority 1</option>
-            <option value="2">Priority 2</option>
-            <option value="3">Priority 3</option>
+        <div class="input-field col s12">          
+          <select id="inputTodoPriority">
+            <option value="" disabled>Choose your Priority</option>
+            <option value="1">Low</option>
+            <option value="2" selected>Normal</option>
+            <option value="3">High</option>
           </select>
+          <label>Choose your priority</label>
         </div>
       </div>
-      <div id = "addTodo" class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+      <div class="modal-footer">
+            <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat"
               >ADD ITEM</a
-            >
+            > -->
+            <button type="submit" class="modal-close waves-effect waves-green btn-flat green" id="inputTodoSubmit">ADD ITEM</button>
           </div>
 
       <div id = "closeTodo" class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat red"
           >CLOSE</a
         >
       </div>
     </form>
     </div>
     <!-- Modal Structure -->
+
     <div id="errandModal" class="modal">
             <div class="modal-content">
               <h4>Add a ERRAND item here</h4>
