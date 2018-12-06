@@ -146,4 +146,54 @@ module.exports = function(app) {
       }
     });
   });
+
+  app.put("/api/errands", function(req, res) {
+    if (!req.body.id) {
+      console.log("IDless PUT sent");
+      res.status(400);
+      return;
+    }
+    db.Errand.update(
+      {
+        complete: req.body.newComplete ? true : false
+      },
+      {
+        where: {
+          id: req.body.id
+        }
+      }
+    ).then(function(dbResult) {
+      if (!dbResult) {
+        console.log("Incoming PUT request failed.");
+        res.status(500);
+      } else {
+        res.status(200).json(dbResult);
+      }
+    });
+  });
+
+  app.put("/api/corrs", function(req, res) {
+    if (!req.body.id) {
+      console.log("IDless PUT sent");
+      res.status(400);
+      return;
+    }
+    db.Corr.update(
+      {
+        complete: req.body.newComplete ? true : false
+      },
+      {
+        where: {
+          id: req.body.id
+        }
+      }
+    ).then(function(dbResult) {
+      if (!dbResult) {
+        console.log("Incoming PUT request failed.");
+        res.status(500);
+      } else {
+        res.status(200).json(dbResult);
+      }
+    });
+  });
 };
