@@ -1,6 +1,9 @@
+var userId = $("#container").data("userId") || 1;
+
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveToDo: function(toDoObject) {
+    this.toDoObject.userId = userId;
     $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -13,6 +16,7 @@ var API = {
     });
   },
   saveErrand: function(errandObject) {
+    this.errandObject.userId = userId;
     $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -25,6 +29,7 @@ var API = {
     });
   },
   saveCorr: function(corrObject) {
+    this.corrObject.userId = userId;
     $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -38,8 +43,11 @@ var API = {
   },
   getTasks: function() {
     return $.ajax({
-      url: "api/",
-      type: "GET"
+      url: "api/all",
+      type: "GET",
+      data: {
+        userId: userId
+      }
     });
   },
   deleteTask: function(table, task) {

@@ -1,6 +1,58 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  //GET it all
+  app.get("/api/all", function(req, res) {
+    var data = {};
+    //var isOkay = true;
+
+    db.Todo.findAll({
+      where: {
+        userId: req.body.userId
+      }
+    }).then(function(todoResult) {
+      //var data = {};
+      if (todoResult === null || todoResult === undefined) {
+        //isOkay = false;
+        console.log("GET all failed at todo");
+        res.status(500);
+        return;
+      } else {
+        data.todos = todoResult;
+        db.Errand.findAll({
+          where: {
+            userId: req.body.userId
+          }
+        }).then(function(errandResult) {
+          if (errandResult === null || errandResult === undefined) {
+            //isOkay = false;
+            console.log("GET all failed at errands");
+            res.status(500);
+            return;
+          } else {
+            data.errands = errandResult;
+            db.Corr.findAll({
+              where: {
+                userId: req.body.userId
+              }
+            }).then(function(corrResult) {
+              if (corrResult === null || corrResult === undefined) {
+                //isOkay = false;
+                console.log("GET all failed at corrs");
+                res.status(500);
+                return;
+              } else {
+                data.correspondence = corrResult;
+                console.log(data);
+                res.status(200).json(data);
+              }
+            });
+          }
+        });
+      }
+    });
+  });
+
   //Obtain all todos for a user
   app.get("/api/todos", function(req, res) {
     if (!req.body.userId) {
