@@ -1,61 +1,127 @@
-// Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
-
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
-    return $.ajax({
+  saveToDo: function(toDoObject) {
+    $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/todos",
+      data: toDoObject
+    }).then(function() {
+      location.reload();
     });
   },
-  getExamples: function() {
+  saveErrand: function(errandObject) {
+    $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/errands",
+      data: errandObject
+    }).then(function() {
+      location.reload();
+    });
+  },
+  saveCorr: function(corrObject) {
+    $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/correspondence",
+      data: corrObject
+    }).then(function() {
+      location.reload();
+    });
+  },
+  getTasks: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteTask: function(table, task) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/" + table + "/" + task,
       type: "DELETE"
     });
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
-      var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
-
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": example.id
-        })
-        .append($a);
-
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
-
-      $li.append($button);
-
-      return $li;
+// refreshTasks takes the response from the db and creates our tables, then it fills them in
+var refreshTasks = function() {
+  API.getTasks().then(function(res) {
+    res.todos(function() {
+      //creates a table for the to do section
+      var $table = $("<table>");
+      $table.attr("id", "todoTable");
+      for (var i = 0; i < res.todos.length; i++) {
+        //creates delete button
+        var tRow = $("<tr>");
+        var $buttonDelete = $("<button>");
+        $buttonDelete.attr("id", "close" + i).text("ｘ");
+        tRow.append($buttonDelete);
+        //creates list item
+        var $li = $("<li>");
+        $li.html("Item " + i + ": " + res.todos[i]);
+        $li.attr("id", "itemId" + i);
+        tRow.append($li);
+        //create complete button
+        var $buttonComplete = $("<button>");
+        $buttonComplete.attr("id", "complete" + i).text("Complete");
+        tRow.append($buttonComplete);
+        $table.append(tRow);
+      }
+      $("#inputTodo").prepend($table);
     });
-
-    $exampleList.empty();
-    $exampleList.append($examples);
+    res.errands(function() {
+      //creates a table for the errands section
+      var $table = $("<table>");
+      $table.attr("id", "errandsTable");
+      for (var i = 0; i < res.errands.length; i++) {
+        //creates delete button
+        var tRow = $("<tr>");
+        var $buttonDelete = $("<button>");
+        $buttonDelete.attr("id", "close" + i).text("ｘ");
+        tRow.append($buttonDelete);
+        //creates list item
+        var $li = $("<li>");
+        $li.html("Item " + i + ": " + res.errands[i]);
+        $li.attr("id", "itemId" + i);
+        tRow.append($li);
+        //create complete button
+        var $buttonComplete = $("<button>");
+        $buttonComplete.attr("id", "complete" + i).text("Complete");
+        tRow.append($buttonComplete);
+        $table.append(tRow);
+      }
+      $("#inputErrands").prepend($table);
+    });
+    res.correspondence(function() {
+      //creates a table for the correspondence section
+      var $table = $("<table>");
+      $table.attr("id", "CorrTable");
+      for (var i = 0; i < res.correspondence.length; i++) {
+        //creates delete button
+        var tRow = $("<tr>");
+        var $buttonDelete = $("<button>");
+        $buttonDelete.attr("id", "close" + i).text("ｘ");
+        tRow.append($buttonDelete);
+        //creates list item
+        var $li = $("<li>");
+        $li.html("Item " + i + ": " + res.correspondence[i]);
+        $li.attr("id", "itemId" + i);
+        tRow.append($li);
+        //create complete button
+        var $buttonComplete = $("<button>");
+        $buttonComplete.attr("id", "complete" + i).text("Complete");
+        tRow.append($buttonComplete);
+        $table.append(tRow);
+      }
+      $("#inputCorr").prepend($table);
+    });
   });
 };
 
@@ -64,18 +130,18 @@ var refreshExamples = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
+  var taskObject = {
     text: $exampleText.val().trim(),
     description: $exampleDescription.val().trim()
   };
 
-  if (!(example.text && example.description)) {
+  if (!(taskObject.text && taskObject.description)) {
     alert("You must enter an example text and description!");
     return;
   }
 
   API.saveExample(example).then(function() {
-    refreshExamples();
+    refreshTasks();
   });
 
   $exampleText.val("");
