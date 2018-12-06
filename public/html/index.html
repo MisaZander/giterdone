@@ -28,32 +28,35 @@
         >
         <ul id="nav-mobile" class="left hide-on-med-and-down"></ul>
       </div>
-    </nav><hr>
+    </nav>
+    
+    <hr>
+
     <div id ="todos"></div>
     <a
-    data-target="modal1"
+    data-target="todoModal"
     class="modal-trigger btn-floating btn-large waves-effect waves-light red"
     ><i class="material-icons">add</i></a>
-    <button class="btn modal-trigger" data-target="modal1">ADD TO-DO</button> <hr>
+    <button class="btn modal-trigger" data-target="todoModal">ADD TO-DO</button> <hr>
       
     <div id ="errands"></div>
     <a
-    data-target="modal2"
+    data-target="errandModal"
     class="btn-floating btn-large waves-effect waves-light red modal-trigger"
     ><i class="material-icons">add</i></a
   >
-  <button class="btn modal-trigger" data-target="modal2">ADD ERRANDS</button> <hr>
+  <button class="btn modal-trigger" data-target="errandModal">ADD ERRANDS</button> <hr>
 
   <div id ="correspondences"></div>
   <a
-  data-target="modal3"
+  data-target="corrModal"
   class="btn modal-trigger btn-floating btn-large waves-effect waves-light red"
   ><i class="material-icons">add</i></a
 >
-<button class="btn modal-trigger" data-target="modal3">CORRESPONDENCE</button> <hr>
+<button class="btn modal-trigger" data-target="corrModal">CORRESPONDENCE</button> <hr>
   
     <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+    <div id="todoModal" class="modal">
       <div class="modal-content">
         <h4>Add a TO-DO item here</h4>
 
@@ -95,7 +98,7 @@
     </form>
     </div>
     <!-- Modal Structure -->
-    <div id="modal2" class="modal">
+    <div id="errandModal" class="modal">
             <div class="modal-content">
               <h4>Add a ERRAND item here</h4>
               <div class="row">
@@ -135,7 +138,7 @@
           </form>
           </div>
           <!-- Modal Structure -->
-    <div id="modal3" class="modal">
+    <div id="corrModal" class="modal">
             <div class="modal-content">
               <h4>Add a TO-DO item here</h4>
       
