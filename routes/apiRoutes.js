@@ -2,13 +2,12 @@ var db = require("../models");
 
 module.exports = function(app) {
   //GET it all
-  app.get("/api/all", function(req, res) {
+  app.get("/api/all/:userId", function(req, res) {
     var data = {};
-    //var isOkay = true;
 
     db.Todo.findAll({
       where: {
-        userId: req.body.userId
+        userId: req.params.userId
       }
     }).then(function(todoResult) {
       //var data = {};
