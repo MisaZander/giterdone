@@ -42,7 +42,7 @@ module.exports = function(app) {
                 return;
               } else {
                 data.correspondence = corrResult;
-                console.log(data);
+                //console.log(data);
                 res.status(200).json(data);
               }
             });
