@@ -31,63 +31,30 @@
       <button class="btn modal-trigger" data-target="todoModal">ADD TO-DO</button> <hr>
       
       <div id ="errands"><!--jQuery will populate this--></div>
-    <a data-target="errandModal" class="btn-floating btn-large waves-effect waves-light red modal-trigger"><i class="material-icons">add</i></a>
-    <button class="btn modal-trigger" data-target="errandModal">ADD ERRANDS</button> <hr>
+      <a data-target="errandModal" class="btn-floating btn-large waves-effect waves-light red modal-trigger"><i class="material-icons">add</i></a>
+      <button class="btn modal-trigger" data-target="errandModal">ADD ERRANDS</button> <hr>
 
-    <div id ="correspondences"><!--jQuery will populate this--></div>
-    <a data-target="corrModal" class="btn modal-trigger btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-    <button class="btn modal-trigger" data-target="corrModal">ADD CORRESPONDENCE</button> <hr>
+      <div id ="correspondences"><!--jQuery will populate this--></div>
+        <a data-target="corrModal" class="btn modal-trigger btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+      <button class="btn modal-trigger" data-target="corrModal">ADD CORRESPONDENCE</button> <hr>
   
-    <!-- Modal Structure -->
-    <div id="todoModal" class="modal">
-      <form id= "todoForm">
-      <div class="modal-content">        
-        <h4>Add a TO-DO item here</h4>
-        <div class="row">
-          <div class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <!-- <i class="material-icons prefix">textsms</i> -->                  
-                <input type="text" id="inputTodoData" class="autocomplete" placeholder="Type what you need to do here..."/>
+      <!-- Modal Structure -->
+      <div id="todoModal" class="modal">
+        <form id= "todoForm">
+        <div class="modal-content">        
+          <h4>Add a TO-DO item here</h4>
+          <div class="row">
+            <div class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <!-- <i class="material-icons prefix">textsms</i> -->                  
+                  <input type="text" id="inputTodoData" class="autocomplete" placeholder="Type what you need to do here..."/>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="input-field col s12">          
-          <select id="inputTodoPriority">
-            <option value="" disabled>Choose your Priority</option>
-            <option value="1">Low</option>
-            <option value="2" selected>Normal</option>
-            <option value="3">High</option>
-          </select>
-          <label>Choose your priority</label>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="waves-effect waves-green btn-flat green" id="inputTodoSubmit">ADD ITEM</button>
-        <button type="submit" class=" modal-close waves-effect waves-green btn-flat red" id="closeTodo">CLOSE AND REFRESH</button>
-      </div>
-      </form>
-    </div>
-    <!-- Modal Structure -->
-
-    <div id="errandModal" class="modal">
-      <div class="modal-content">
-        <form id= "errandForm">
-        <h4>Add an ERRAND item here</h4>
-        <div class="row">
-          <div class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <!-- <i class="material-icons prefix">textsms</i> -->                
-                <input type="text" id="inputErrandData" class="autocomplete" placeholder="Enter errand task here..."/>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <select id="inputErrandPriority">
+          <div class="input-field col s12">          
+            <select id="inputTodoPriority">
               <option value="" disabled>Choose your Priority</option>
               <option value="1">Low</option>
               <option value="2" selected>Normal</option>
@@ -95,36 +62,64 @@
             </select>
             <label>Choose your priority</label>
           </div>
-        </div>        
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="waves-effect waves-green btn-flat green" id="inputTodoSubmit">ADD ITEM</button>
+          <button type="submit" class=" modal-close waves-effect waves-green btn-flat red" id="closeTodo">CLOSE AND REFRESH</button>
+        </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="submit" class="waves-effect waves-green btn-flat green" id="inputErrandSubmit">ADD ITEM</button>
-        <button type="submit" class="close-modal waves-effect waves-green btn-flat red" id="closeErrand">CLOSE AND REFRESH</button>
-      </div>
-      </form>
-    </div>
-    <!-- Modal Structure -->
+      <!-- Modal Structure -->
 
-    <div id="corrModal" class="modal">
-            <div class="modal-content">
-              <h4>Add a CORRESPONDENCE item here</h4>
-      
+      <div id="errandModal" class="modal">
+        <div class="modal-content">
+          <form id= "errandForm">
+          <h4>Add an ERRAND item here</h4>
+          <div class="row">
+            <div class="col s12">
               <div class="row">
-                <div class="col s12">
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <!-- <i class="material-icons prefix">textsms</i> -->
-                      <form id= "correspondenceForm">
-                      <input
-                        type="text"
-                        id="inputCorrData"
-                        class="autocomplete"
-                        placeholder="Type what you need to discuss with someone here..."
-                      />
-                    </div>
+                <div class="input-field col s12">
+                  <!-- <i class="material-icons prefix">textsms</i> -->                
+                  <input type="text" id="inputErrandData" class="autocomplete" placeholder="Enter errand task here..."/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <select id="inputErrandPriority">
+                <option value="" disabled>Choose your Priority</option>
+                <option value="1">Low</option>
+                <option value="2" selected>Normal</option>
+                <option value="3">High</option>
+              </select>
+              <label>Choose your priority</label>
+            </div>
+          </div>        
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="waves-effect waves-green btn-flat green" id="inputErrandSubmit">ADD ITEM</button>
+          <button type="submit" class="close-modal waves-effect waves-green btn-flat red" id="closeErrand">CLOSE AND REFRESH</button>
+        </div>
+        </form>
+      </div>
+      <!-- Modal Structure -->
+
+      <div id="corrModal" class="modal">
+        <form id= "correspondenceForm">
+          <div class="modal-content">
+            <h4>Add a CORRESPONDENCE item here</h4>
+            <div class="row">
+              <div class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <!-- <i class="material-icons prefix">textsms</i> -->                
+                    <input type="text" id="inputCorrData" class="autocomplete" placeholder="Type what you need to discuss with someone here..."/>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="input-field col s12">
                 <select id="inputCorrPriority">
                   <option value="" disabled>Choose your Priority</option>
@@ -135,21 +130,23 @@
                 <label>Choose your priority</label>
               </div>
             </div>
-            <div class="modal-footer">
-                  <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-                    >ADD ITEM</a
-                  > -->
-                  <button type="submit" class="waves-effect waves-green btn-flat green" id="inputCorrSubmit">ADD ITEM</button>
-                </div>
-      
-            <div id = "closeTodo" class="modal-footer">
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat red"
-                >CLOSE</a
-              >
+            <div class="input-field col s12">
+              <select id="inputCorrPriority">
+                <option value="" disabled>Choose your Priority</option>
+                <option value="1">Low</option>
+                <option value="2" selected>Normal</option>
+                <option value="3">High</option>
+              </select>
+              <label>Choose your priority</label>
             </div>
-          </form>
           </div>
-</div>
+          <div class="modal-footer">
+            <button type="submit" class="waves-effect waves-green btn-flat green" id="inputCorrSubmit">ADD ITEM</button>
+            <button type="submit" class=" close-modal waves-effect waves-green btn-flat red" id="corrClose">CLOSE AND REFRESH</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script>
       $(document).ready(function() {
         $(".modal").modal();
