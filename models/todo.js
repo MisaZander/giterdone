@@ -2,11 +2,17 @@ module.exports = function(sequelize, DataTypes) {
   var Todo = sequelize.define("Todo", {
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     data: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     priority: {
       type: DataTypes.INTEGER,

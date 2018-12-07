@@ -332,9 +332,14 @@ function handleError(err, res) {
     return res
       .status(400)
       .end("One or more data members was incomplete in your request.");
+  } else if (err.errors[0].validatorKey === "is_null") {
+    console.log("A request was made with one or more null params");
+    return res
+      .status(400)
+      .end("One or more data members was totally missing in your request.");
   } else {
     console.log("A request was made that blew the server's mind.");
     console.log("Sequelize message: " + err.errors[0].message);
-    return res.status(500).end(err.errors[0].message);
+    return res.status(500).json(err.errors);
   }
 }
