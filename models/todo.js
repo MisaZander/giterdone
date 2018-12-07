@@ -1,8 +1,17 @@
 module.exports = function(sequelize, DataTypes) {
   var Todo = sequelize.define("Todo", {
-    userId: DataTypes.INTEGER,
-    data: DataTypes.STRING,
-    priority: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    data: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    priority: {
+      type: DataTypes.INTEGER,
+      defaultValue: 2
+    },
     complete: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

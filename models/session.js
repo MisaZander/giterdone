@@ -5,9 +5,18 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    sid: DataTypes.STRING,
-    expires: DataTypes.DATE,
-    data: DataTypes.TEXT
+    sid: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    expires: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    data: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    }
   });
 
   return Session;
