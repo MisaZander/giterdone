@@ -1,8 +1,5 @@
 require("dotenv").config();
 
-console.log("Logging: " + process.env.DB_LOGGING);
-console.log("Force: " + process.env.DB_FORCE);
-
 module.exports = {
   development: {
     username: process.env.DB_USERNAME,
