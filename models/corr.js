@@ -38,5 +38,14 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: false
     }
   });
+
+  Corr.associate = function(models) {
+    Corr.belongsTo(models.Session, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      }
+    });
+  };
   return Corr;
 };

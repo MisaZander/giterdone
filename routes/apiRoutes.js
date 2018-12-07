@@ -20,7 +20,7 @@ module.exports = function(app) {
           data.todos = todoResult;
           db.Errand.findAll({
             where: {
-              userId: req.body.userId
+              userId: req.params.userId
             }
           })
             .then(function(errandResult) {
@@ -32,7 +32,7 @@ module.exports = function(app) {
                 data.errands = errandResult;
                 db.Corr.findAll({
                   where: {
-                    userId: req.body.userId
+                    userId: req.params.userId
                   }
                 })
                   .then(function(corrResult) {

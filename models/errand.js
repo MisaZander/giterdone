@@ -30,5 +30,14 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: false
     }
   });
+
+  Errand.associate = function(models) {
+    Errand.belongsTo(models.Session, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      }
+    });
+  };
   return Errand;
 };

@@ -28,5 +28,31 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  Session.associate = function(models) {
+    Session.hasMany(models.Todo, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      },
+      onDelete: "cascade"
+    });
+
+    Session.hasMany(models.Errand, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      },
+      onDelete: "cascade"
+    });
+
+    Session.hasMany(models.Corr, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      },
+      onDelete: "cascade"
+    });
+  };
+
   return Session;
 };

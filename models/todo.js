@@ -23,5 +23,14 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: false
     }
   });
+
+  Todo.associate = function(models) {
+    Todo.belongsTo(models.Session, {
+      foreignKey: {
+        name: "userId",
+        allowNull: false
+      }
+    });
+  };
   return Todo;
 };
