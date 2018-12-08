@@ -222,9 +222,10 @@ $("#inputCorrSubmit").on("click", function(event) {
   FormSubmitCorr(event);
 });
 
-$(".close-modal").on("click", function(event) {
+$(".modal-close").on("click", function(event) {
   event.preventDefault();
-  location.reload();
+  // console.log("on click")
+  refreshTasks();
 });
 
 $(document).ready(function() {
