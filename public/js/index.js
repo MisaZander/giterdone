@@ -15,7 +15,7 @@ var API = {
     // this.errandObject.userId = userId;
     $.ajax({
       type: "POST",
-      url: "api/errands",
+      url: "/api/errands",
       data: errandObject
     });
   },
@@ -23,7 +23,7 @@ var API = {
     // this.corrObject.userId = userId;
     $.ajax({
       type: "POST",
-      url: "api/correspondence",
+      url: "/api/corrs",
       data: corrObject
     });
   },
@@ -205,7 +205,6 @@ function FormSubmitCorr(event) {
       .val()
       .trim(),
     who: "WE NEED A FORM",
-    whenever: true,
     priority: parseInt($("#inputCorrPriority").val()),
     userId: userId
   };

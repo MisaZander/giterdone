@@ -44,7 +44,9 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: {
         name: "userId",
         allowNull: false
-      }
+      },
+      onDelete: "CASCADE",
+      hooks: true
     });
   };
   return Corr;

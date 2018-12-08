@@ -78,19 +78,19 @@ module.exports = function(app) {
     });
 
     //Obtain all todos for a user
-    app.get("/api/todos", function(req, res) {
-      if (!req.body.userId) {
+    app.get("/api/todos/:userId", function(req, res) {
+      if (!req.params.userId) {
         console.log("No userId set in this todo GET request");
         return res.status(400).end("userId missing or invalid");
       }
       db.Todo.findAll({
         where: {
-          userId: req.body.userId
+          userId: req.params.userId
         }
       })
         .then(function(dbResult) {
           if (dbResult === null || dbResult === undefined) {
-            return res.status(404);
+            return res.status(404).end("User not found");
           }
           return res.status(200).json(dbResult);
         })
@@ -99,14 +99,14 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/api/errands", function(req, res) {
+    app.get("/api/errands/:userId", function(req, res) {
       if (!req.body.userId) {
         console.log("No userId set in this errand GET request");
         return res.status(400).end("userId missing or invalid");
       }
       db.Errand.findAll({
         where: {
-          userId: req.body.userId
+          userId: req.params.userId
         }
       })
         .then(function(dbResult) {
@@ -120,14 +120,14 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/api/corrs", function(req, res) {
+    app.get("/api/corrs/:userId", function(req, res) {
       if (!req.body.userId) {
         console.log("No userId set in this corr GET request");
         return res.status(400).end("userId missing or invalid");
       }
       db.Corr.findAll({
         where: {
-          userId: req.body.userId
+          userId: req.params.userId
         }
       })
         .then(function(dbResult) {

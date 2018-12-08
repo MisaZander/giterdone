@@ -34,7 +34,8 @@ module.exports = function(sequelize, DataTypes) {
         name: "userId",
         allowNull: false
       },
-      onDelete: "cascade"
+      onDelete: "CASCADE",
+      hooks: true
     });
 
     Session.hasMany(models.Errand, {
@@ -42,7 +43,8 @@ module.exports = function(sequelize, DataTypes) {
         name: "userId",
         allowNull: false
       },
-      onDelete: "cascade"
+      onDelete: "CASCADE",
+      hooks: true
     });
 
     Session.hasMany(models.Corr, {
@@ -50,7 +52,8 @@ module.exports = function(sequelize, DataTypes) {
         name: "userId",
         allowNull: false
       },
-      onDelete: "cascade"
+      onDelete: "CASCADE",
+      hooks: true
     });
   };
 
