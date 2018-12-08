@@ -4,7 +4,6 @@ var userId = $("#container").data("userId") || 1;
 var API = {
   saveToDo: function(toDoObject) {
     console.log(toDoObject);
-    // this.toDoObject.userId = userId;
     $.ajax({
       type: "POST",
       url: "/api/todos",
@@ -12,18 +11,16 @@ var API = {
     });
   },
   saveErrand: function(errandObject) {
-    // this.errandObject.userId = userId;
     $.ajax({
       type: "POST",
-      url: "api/errands",
+      url: "/api/errands",
       data: errandObject
     });
   },
   saveCorr: function(corrObject) {
-    // this.corrObject.userId = userId;
     $.ajax({
       type: "POST",
-      url: "api/correspondence",
+      url: "/api/corrs",
       data: corrObject
     });
   },
@@ -32,7 +29,6 @@ var API = {
       url: "api/all/" + userId,
       type: "GET"
     }).then(function(res) {
-      //console.log(res);
       refreshTasks(res);
     });
   },
@@ -59,7 +55,6 @@ var refreshTasks = function(res) {
     var $td = $("<td>");
     var $data = $("<p>");
     $data.text("Item " + (i + 1) + ": " + res.todos[i].data);
-    //$data.attr("id", "itemId" + i);
     if (res.todos[i].complete) {
       $data.css("text-decoration", "line-through");
       $data.attr("data-newComplete", "false");
@@ -84,7 +79,6 @@ var refreshTasks = function(res) {
     var tRow = $("<tr>");
     //creates complete button
     var $buttonComplete = $("<button>");
-    //$buttonComplete.attr("id", "complete" + i).text("Complete");
     $buttonComplete.attr("data-id", res.errands[i].id);
     $buttonComplete.attr("class", "errandComplete").text("Complete");
     tRow.append($buttonComplete);
@@ -92,7 +86,6 @@ var refreshTasks = function(res) {
     var $td = $("<td>");
     var $data = $("<p>");
     $data.text("Item " + (i + 1) + ": " + res.errands[i].data);
-    //$data.attr("id", "itemId" + i);
     if (res.errands[i].complete) {
       $data.css("text-decoration", "line-through");
       $data.attr("data-newComplete", "false");
@@ -103,7 +96,6 @@ var refreshTasks = function(res) {
     tRow.append($td);
     //create delete button
     var $buttonDelete = $("<button>");
-    //$buttonDelete.attr("id", "close" + i).text("ｘ");
     $buttonDelete.attr("data-id", res.errands[i].id);
     $buttonDelete.attr("class", "errandDelete").text("ｘ");
     tRow.append($buttonDelete);
@@ -205,7 +197,6 @@ function FormSubmitCorr(event) {
       .val()
       .trim(),
     who: "WE NEED A FORM",
-    whenever: true,
     priority: parseInt($("#inputCorrPriority").val()),
     userId: userId
   };
@@ -225,6 +216,16 @@ $("#inputCorrSubmit").on("click", function(event) {
   FormSubmitCorr(event);
 });
 
+$(".close-modal").on("click", function(event) {
+  event.preventDefault();
+  location.reload();
+});
+
+$(document).ready(function() {
+  API.getTasks();
+});
+
+//THIS IS A CODE BANK; STICK EM UP
 //   $exampleText.val("");
 //   $exampleDescription.val("");
 // };
@@ -244,7 +245,3 @@ $("#inputCorrSubmit").on("click", function(event) {
 // // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
 // $exampleList.on("click", ".delete", handleDeleteBtnClick);
-
-$(document).ready(function() {
-  API.getTasks();
-});

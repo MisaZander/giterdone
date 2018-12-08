@@ -130,19 +130,10 @@
                 <label>Choose your priority</label>
               </div>
             </div>
-            <div class="input-field col s12">
-              <select id="inputCorrPriority">
-                <option value="" disabled>Choose your Priority</option>
-                <option value="1">Low</option>
-                <option value="2" selected>Normal</option>
-                <option value="3">High</option>
-              </select>
-              <label>Choose your priority</label>
-            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="waves-effect waves-green btn-flat green" id="inputCorrSubmit">ADD ITEM</button>
-            <button type="submit" class=" close-modal waves-effect waves-green btn-flat red" id="corrClose">CLOSE AND REFRESH</button>
+            <input type="submit" class="close-modal waves-effect waves-green btn-flat red" id="corrClose" value="CLOSE AND REFRESH">
           </div>
         </form>
       </div>
@@ -154,6 +145,7 @@
       $(document).ready(function() {
         $("select").formSelect();
       });
+      
     </script>
   </body>
 </html>
