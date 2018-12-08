@@ -4,7 +4,6 @@ var userId = $("#container").data("userId") || 1;
 var API = {
   saveToDo: function(toDoObject) {
     console.log(toDoObject);
-    // this.toDoObject.userId = userId;
     $.ajax({
       type: "POST",
       url: "/api/todos",
@@ -12,7 +11,6 @@ var API = {
     });
   },
   saveErrand: function(errandObject) {
-    // this.errandObject.userId = userId;
     $.ajax({
       type: "POST",
       url: "/api/errands",
@@ -20,7 +18,6 @@ var API = {
     });
   },
   saveCorr: function(corrObject) {
-    // this.corrObject.userId = userId;
     $.ajax({
       type: "POST",
       url: "/api/corrs",
@@ -28,121 +25,122 @@ var API = {
     });
   },
   getTasks: function() {
-    $.ajax({
+    return $.ajax({
       url: "api/all/" + userId,
       type: "GET"
-    }).then(function(res) {
-      //console.log(res);
-      refreshTasks(res);
     });
   },
-  deleteTask: function(table, task) {
+  deleteTodo: function(deleteID) {
     return $.ajax({
-      url: "api/" + table + "/" + task,
-      type: "DELETE"
+      url: "api/todos/",
+      type: "DELETE",
+      data: {
+        id: deleteID
+      }
+    }).then(function() {
+      refreshTasks();
     });
   }
 };
 
 // refreshTasks takes the response from the db and creates our tables, then it fills them in
-var refreshTasks = function(res) {
-  var $todoTable = $("<table>");
-  $todoTable.attr("id", "todoTable");
-  for (var i = 0; i < res.todos.length; i++) {
-    var tRow = $("<tr>");
-    //create complete button
-    var $buttonComplete = $("<button>");
-    $buttonComplete.attr("data-id", res.todos[i].id);
-    $buttonComplete.attr("class", "todoComplete").text("Complete");
-    tRow.append($buttonComplete);
-    //creates list item
-    var $td = $("<td>");
-    var $data = $("<p>");
-    $data.text("Item " + (i + 1) + ": " + res.todos[i].data);
-    //$data.attr("id", "itemId" + i);
-    if (res.todos[i].complete) {
-      $data.css("text-decoration", "line-through");
-      $data.attr("data-newComplete", "false");
-    } else {
-      $data.attr("data-newComplete", "true");
-    }
-    $td.append($data);
-    tRow.append($td);
-    //creates a delete button
-    var $buttonDelete = $("<button>");
-    $buttonDelete.attr("data-id", res.todos[i].id);
-    $buttonDelete.attr("class", "todoDelete").text("ｘ");
-    tRow.append($buttonDelete);
+var refreshTasks = function() {
+  API.getTasks().then(function(res) {
+    console.log(res);
+    var $todoTable = $("<table>");
+    $("#todos").empty();
+    $todoTable.attr("id", "todoTable");
+    for (var i = 0; i < res.todos.length; i++) {
+      var tRow = $("<tr>");
+      //create complete button
+      var $buttonComplete = $("<button>");
+      $buttonComplete.attr("data-id", res.todos[i].id);
+      $buttonComplete.attr("class", "todoComplete").text("Complete");
+      tRow.append($buttonComplete);
+      //creates list item
+      var $td = $("<td>");
+      var $data = $("<p>");
+      $data.text("Item " + (i + 1) + ": " + res.todos[i].data);
+      if (res.todos[i].complete) {
+        $data.css("text-decoration", "line-through");
+        $data.attr("data-newComplete", "false");
+      } else {
+        $data.attr("data-newComplete", "true");
+      }
+      $td.append($data);
+      tRow.append($td);
+      //creates a delete button
+      var $buttonDelete = $("<button>");
+      $buttonDelete.attr("data-id", res.todos[i].id);
+      $buttonDelete.attr("class", "todoDelete").text("ｘ");
+      tRow.append($buttonDelete);
 
-    $todoTable.append(tRow);
-  }
-  $("#todos").prepend($todoTable);
-
-  var $errTable = $("<table>");
-  $errTable.attr("id", "errandsTable");
-  for (var i = 0; i < res.errands.length; i++) {
-    var tRow = $("<tr>");
-    //creates complete button
-    var $buttonComplete = $("<button>");
-    //$buttonComplete.attr("id", "complete" + i).text("Complete");
-    $buttonComplete.attr("data-id", res.errands[i].id);
-    $buttonComplete.attr("class", "errandComplete").text("Complete");
-    tRow.append($buttonComplete);
-    //creates list item
-    var $td = $("<td>");
-    var $data = $("<p>");
-    $data.text("Item " + (i + 1) + ": " + res.errands[i].data);
-    //$data.attr("id", "itemId" + i);
-    if (res.errands[i].complete) {
-      $data.css("text-decoration", "line-through");
-      $data.attr("data-newComplete", "false");
-    } else {
-      $data.attr("data-newComplete", "true");
+      $todoTable.append(tRow);
     }
-    $td.append($data);
-    tRow.append($td);
-    //create delete button
-    var $buttonDelete = $("<button>");
-    //$buttonDelete.attr("id", "close" + i).text("ｘ");
-    $buttonDelete.attr("data-id", res.errands[i].id);
-    $buttonDelete.attr("class", "errandDelete").text("ｘ");
-    tRow.append($buttonDelete);
-    $errTable.append(tRow);
-  }
-  $("#errands").prepend($errTable);
+    $("#todos").prepend($todoTable);
 
-  var $corrTable = $("<table>");
-  $corrTable.attr("id", "CorrTable");
-  for (var i = 0; i < res.correspondence.length; i++) {
-    var tRow = $("<tr>");
-    //creates complete button
-    var $buttonComplete = $("<button>");
-    //$buttonComplete.attr("id", "complete" + i).text("Complete");
-    $buttonComplete.attr("data-id", res.correspondence[i].id);
-    $buttonComplete.attr("class", "corrComplete").text("Complete");
-    tRow.append($buttonComplete);
-    //creates list item
-    var $td = $("<td>");
-    var $data = $("<p>");
-    $data.text("Item " + (i + 1) + ": " + res.correspondence[i].data);
-    //$data.attr("id", "itemId" + i);
-    if (res.correspondence[i].complete) {
-      $data.css("text-decoration", "line-through");
-      $data.attr("data-newComplete", "false");
-    } else {
-      $data.attr("data-newComplete", "true");
+    var $errTable = $("<table>");
+    $errTable.attr("id", "errandsTable");
+    for (var i = 0; i < res.errands.length; i++) {
+      var tRow = $("<tr>");
+      //creates complete button
+      var $buttonComplete = $("<button>");
+      $buttonComplete.attr("data-id", res.errands[i].id);
+      $buttonComplete.attr("class", "errandComplete").text("Complete");
+      tRow.append($buttonComplete);
+      //creates list item
+      var $td = $("<td>");
+      var $data = $("<p>");
+      $data.text("Item " + (i + 1) + ": " + res.errands[i].data);
+      if (res.errands[i].complete) {
+        $data.css("text-decoration", "line-through");
+        $data.attr("data-newComplete", "false");
+      } else {
+        $data.attr("data-newComplete", "true");
+      }
+      $td.append($data);
+      tRow.append($td);
+      //create delete button
+      var $buttonDelete = $("<button>");
+      $buttonDelete.attr("data-id", res.errands[i].id);
+      $buttonDelete.attr("class", "errandDelete").text("ｘ");
+      tRow.append($buttonDelete);
+      $errTable.append(tRow);
     }
-    $td.append($data);
-    tRow.append($td);
-    //create delete button
-    var $buttonDelete = $("<button>");
-    //$buttonDelete.attr("id", "close" + i).text("ｘ");
-    $buttonDelete.attr("data-id", res.correspondence[i].id);
-    $buttonDelete.attr("class", "corrDelete").text("ｘ");
-    tRow.append($buttonDelete);
-    $corrTable.append(tRow);
-  }
-  $("#correspondences").prepend($corrTable);
+    $("#errands").prepend($errTable);
+    var $corrTable = $("<table>");
+    $corrTable.attr("id", "CorrTable");
+    for (var i = 0; i < res.correspondence.length; i++) {
+      var tRow = $("<tr>");
+      //creates complete button
+      var $buttonComplete = $("<button>");
+      //$buttonComplete.attr("id", "complete" + i).text("Complete");
+      $buttonComplete.attr("data-id", res.correspondence[i].id);
+      $buttonComplete.attr("class", "corrComplete").text("Complete");
+      tRow.append($buttonComplete);
+      //creates list item
+      var $td = $("<td>");
+      var $data = $("<p>");
+      $data.text("Item " + (i + 1) + ": " + res.correspondence[i].data);
+      //$data.attr("id", "itemId" + i);
+      if (res.correspondence[i].complete) {
+        $data.css("text-decoration", "line-through");
+        $data.attr("data-newComplete", "false");
+      } else {
+        $data.attr("data-newComplete", "true");
+      }
+      $td.append($data);
+      tRow.append($td);
+      //create delete button
+      var $buttonDelete = $("<button>");
+      //$buttonDelete.attr("id", "close" + i).text("ｘ");
+      $buttonDelete.attr("data-id", res.correspondence[i].id);
+      $buttonDelete.attr("class", "corrDelete").text("ｘ");
+      tRow.append($buttonDelete);
+      $corrTable.append(tRow);
+    }
+    $("#correspondences").prepend($corrTable);
+  });
 };
 
 // handleFormSubmit is called whenever we submit a new example
@@ -224,6 +222,28 @@ $("#inputCorrSubmit").on("click", function(event) {
   FormSubmitCorr(event);
 });
 
+$(".modal-close").on("click", function(event) {
+  event.preventDefault();
+  // console.log("on click")
+  refreshTasks();
+});
+
+$(document).ready(function() {
+  refreshTasks();
+});
+
+var DeleteBtnClick = function(deleteID) {
+  console.log(deleteID);
+
+  API.deleteTodo(deleteID).then(function() {
+    refreshTasks();
+  });
+};
+$(document).on("click", ".todoDelete", function() {
+  var deleteID = $(this).attr("data-id");
+  DeleteBtnClick(deleteID);
+});
+//THIS IS A CODE BANK; STICK EM UP
 //   $exampleText.val("");
 //   $exampleDescription.val("");
 // };
@@ -242,8 +262,4 @@ $("#inputCorrSubmit").on("click", function(event) {
 
 // // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
-// $exampleList.on("click", ".delete", handleDeleteBtnClick);
-
-$(document).ready(function() {
-  API.getTasks();
-});
+// $exampleList.on("click", ".delete", handleDeleteBtnClick) 
