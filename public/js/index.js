@@ -3,42 +3,28 @@ var userId = $("#container").data("userId") || 1;
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveToDo: function(toDoObject) {
-    this.toDoObject.userId = userId;
+    console.log(toDoObject);
+    // this.toDoObject.userId = userId;
     $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
-      url: "api/todos",
+      url: "/api/todos",
       data: toDoObject
-    }).then(function() {
-      location.reload();
     });
   },
   saveErrand: function(errandObject) {
-    this.errandObject.userId = userId;
+    // this.errandObject.userId = userId;
     $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
       url: "api/errands",
       data: errandObject
-    }).then(function() {
-      location.reload();
     });
   },
   saveCorr: function(corrObject) {
-    this.corrObject.userId = userId;
+    // this.corrObject.userId = userId;
     $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
       url: "api/correspondence",
       data: corrObject
-    }).then(function() {
-      location.reload();
     });
   },
   getTasks: function() {
@@ -63,20 +49,31 @@ var refreshTasks = function(res) {
   var $todoTable = $("<table>");
   $todoTable.attr("id", "todoTable");
   for (var i = 0; i < res.todos.length; i++) {
-    //creates delete button
     var tRow = $("<tr>");
-    var $buttonDelete = $("<button>");
-    $buttonDelete.attr("class", "todoDelete").text("ｘ");
-    tRow.append($buttonDelete);
-    //creates list item
-    var $td = $("<td>");
-    $td.text("Item " + (i + 1) + ": " + res.todos[i].data);
-    $td.attr("id", "itemId" + i);
-    tRow.append($td);
     //create complete button
     var $buttonComplete = $("<button>");
+    $buttonComplete.attr("data-id", res.todos[i].id);
     $buttonComplete.attr("class", "todoComplete").text("Complete");
     tRow.append($buttonComplete);
+    //creates list item
+    var $td = $("<td>");
+    var $data = $("<p>");
+    $data.text("Item " + (i + 1) + ": " + res.todos[i].data);
+    //$data.attr("id", "itemId" + i);
+    if (res.todos[i].complete) {
+      $data.css("text-decoration", "line-through");
+      $data.attr("data-newComplete", "false");
+    } else {
+      $data.attr("data-newComplete", "true");
+    }
+    $td.append($data);
+    tRow.append($td);
+    //creates a delete button
+    var $buttonDelete = $("<button>");
+    $buttonDelete.attr("data-id", res.todos[i].id);
+    $buttonDelete.attr("class", "todoDelete").text("ｘ");
+    tRow.append($buttonDelete);
+
     $todoTable.append(tRow);
   }
   $("#todos").prepend($todoTable);
@@ -84,64 +81,149 @@ var refreshTasks = function(res) {
   var $errTable = $("<table>");
   $errTable.attr("id", "errandsTable");
   for (var i = 0; i < res.errands.length; i++) {
-    //creates delete button
     var tRow = $("<tr>");
-    var $buttonDelete = $("<button>");
-    $buttonDelete.attr("id", "close" + i).text("ｘ");
-    tRow.append($buttonDelete);
+    //creates complete button
+    var $buttonComplete = $("<button>");
+    //$buttonComplete.attr("id", "complete" + i).text("Complete");
+    $buttonComplete.attr("data-id", res.errands[i].id);
+    $buttonComplete.attr("class", "errandComplete").text("Complete");
+    tRow.append($buttonComplete);
     //creates list item
     var $td = $("<td>");
-    $td.html("Item " + i + ": " + res.errands[i]);
-    $td.attr("id", "itemId" + i);
+    var $data = $("<p>");
+    $data.text("Item " + (i + 1) + ": " + res.errands[i].data);
+    //$data.attr("id", "itemId" + i);
+    if (res.errands[i].complete) {
+      $data.css("text-decoration", "line-through");
+      $data.attr("data-newComplete", "false");
+    } else {
+      $data.attr("data-newComplete", "true");
+    }
+    $td.append($data);
     tRow.append($td);
-    //create complete button
-    var $buttonComplete = $("<button>");
-    $buttonComplete.attr("id", "complete" + i).text("Complete");
-    tRow.append($buttonComplete);
+    //create delete button
+    var $buttonDelete = $("<button>");
+    //$buttonDelete.attr("id", "close" + i).text("ｘ");
+    $buttonDelete.attr("data-id", res.errands[i].id);
+    $buttonDelete.attr("class", "errandDelete").text("ｘ");
+    tRow.append($buttonDelete);
     $errTable.append(tRow);
   }
-  $("#inputErrands").prepend($errTable);
+  $("#errands").prepend($errTable);
 
   var $corrTable = $("<table>");
   $corrTable.attr("id", "CorrTable");
   for (var i = 0; i < res.correspondence.length; i++) {
-    //creates delete button
     var tRow = $("<tr>");
-    var $buttonDelete = $("<button>");
-    $buttonDelete.attr("id", "close" + i).text("ｘ");
-    tRow.append($buttonDelete);
+    //creates complete button
+    var $buttonComplete = $("<button>");
+    //$buttonComplete.attr("id", "complete" + i).text("Complete");
+    $buttonComplete.attr("data-id", res.correspondence[i].id);
+    $buttonComplete.attr("class", "corrComplete").text("Complete");
+    tRow.append($buttonComplete);
     //creates list item
     var $td = $("<td>");
-    $td.html("Item " + i + ": " + res.correspondence[i]);
-    $td.attr("id", "itemId" + i);
+    var $data = $("<p>");
+    $data.text("Item " + (i + 1) + ": " + res.correspondence[i].data);
+    //$data.attr("id", "itemId" + i);
+    if (res.correspondence[i].complete) {
+      $data.css("text-decoration", "line-through");
+      $data.attr("data-newComplete", "false");
+    } else {
+      $data.attr("data-newComplete", "true");
+    }
+    $td.append($data);
     tRow.append($td);
-    //create complete button
-    var $buttonComplete = $("<button>");
-    $buttonComplete.attr("id", "complete" + i).text("Complete");
-    tRow.append($buttonComplete);
+    //create delete button
+    var $buttonDelete = $("<button>");
+    //$buttonDelete.attr("id", "close" + i).text("ｘ");
+    $buttonDelete.attr("data-id", res.correspondence[i].id);
+    $buttonDelete.attr("class", "corrDelete").text("ｘ");
+    tRow.append($buttonDelete);
     $corrTable.append(tRow);
   }
-  $("#inputCorr").prepend($corrTable);
+  $("#correspondences").prepend($corrTable);
 };
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-// var handleFormSubmit = function(event) {
-//   event.preventDefault();
+function FormSubmitTodo(event) {
+  event.preventDefault();
+  var todoObject = {
+    data: $("#inputTodoData")
+      .val()
+      .trim(),
+    priority: parseInt($("#inputTodoPriority").val()),
+    userId: userId
+  };
 
-//   var taskObject = {
-//     text: $exampleText.val().trim(),
-//     description: $exampleDescription.val().trim()
-//   };
+  if (!(todoObject.data && todoObject.priority)) {
+    alert("You must enter a To-Do item and Priority!");
+    return;
+  }
 
-//   if (!(taskObject.text && taskObject.description)) {
-//     alert("You must enter an example text and description!");
-//     return;
-//   }
+  $("#inputTodoData").val("");
+  $("#inputToDoPriority").val("");
+  console.log(todoObject);
+  API.saveToDo(todoObject);
+}
 
-//   API.saveExample(example).then(function() {
-//     refreshTasks();
-//   });
+$("#inputTodoSubmit").on("click", function(event) {
+  FormSubmitTodo(event);
+});
+
+function FormSubmitErrand(event) {
+  event.preventDefault();
+  var errandObject = {
+    data: $("#inputErrandData")
+      .val()
+      .trim(),
+    where: "WE NEED A FORM",
+    priority: parseInt($("#inputErrandPriority").val()),
+    userId: userId
+  };
+
+  if (!(errandObject.data && errandObject.priority)) {
+    alert("You must enter an Errand and Priority!");
+    return;
+  }
+
+  $("#inputErrandData").val("");
+  $("#inputErrandPriority").val("");
+  console.log(errandObject);
+  API.saveErrand(errandObject);
+}
+
+$("#inputErrandSubmit").on("click", function(event) {
+  FormSubmitErrand(event);
+});
+
+function FormSubmitCorr(event) {
+  event.preventDefault();
+  var corrObject = {
+    data: $("#inputCorrData")
+      .val()
+      .trim(),
+    who: "WE NEED A FORM",
+    whenever: true,
+    priority: parseInt($("#inputCorrPriority").val()),
+    userId: userId
+  };
+
+  if (!(corrObject.data && corrObject.priority)) {
+    alert("You must enter a Correspondence, Person and Priority!");
+    return;
+  }
+
+  $("#inputCorrData").val("");
+  $("#inputCorrPriority").val("");
+  console.log(corrObject);
+  API.saveCorr(corrObject);
+}
+
+$("#inputCorrSubmit").on("click", function(event) {
+  FormSubmitCorr(event);
+});
 
 //   $exampleText.val("");
 //   $exampleDescription.val("");
