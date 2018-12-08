@@ -232,7 +232,7 @@ var DeleteBtnClick = function(deleteID) {
   console.log(deleteID);
 
   API.deleteTodo(deleteID).then(function() {
-    refreshTasks();
+    location.reload();
   });
 };
 $(document).on("click", ".todoDelete", function() {
