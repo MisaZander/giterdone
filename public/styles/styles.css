@@ -1,7 +1,38 @@
 body, html{
-  background-color: goldenrod;
+  background-color: #FFEE8B;
+  background-image: url("../images/flower.jpg");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.nav-wrapper{
+ background-color: #965FA9;
+}
+#title{
+  color:yellow;
+  background-color: #965FA9;
+}
+.btn{
+  color: yellow;
+  background-color:#7C3E92;
+}
+.material-icons{
+  background-color:hotpink;
+  color: rebeccapurple;
+}
+.btn:hover{
+  background-color: teal;
+}
+i.material-icons {
+  color: blue;
+}
+.introText{
+  text-align: center;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 25px;
+  font-weight: bold;
+}
+#inputTodoSubmit{
+  background-color: rgb(33, 105, 33);
 }
