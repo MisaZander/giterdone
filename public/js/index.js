@@ -3,16 +3,12 @@ var userId = $("#container").data("userId") || 1;
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveToDo: function(toDoObject) {
-    this.toDoObject.userId = userId;
+    console.log(toDoObject);
+    // this.toDoObject.userId = userId;
     $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
-      url: "api/todos",
+      url: "/api/todos",
       data: toDoObject
-    }).then(function() {
-      location.reload();
     });
   },
   saveErrand: function(errandObject) {
@@ -24,8 +20,6 @@ var API = {
       type: "POST",
       url: "api/errands",
       data: errandObject
-    }).then(function() {
-      location.reload();
     });
   },
   saveCorr: function(corrObject) {
@@ -37,8 +31,6 @@ var API = {
       type: "POST",
       url: "api/correspondence",
       data: corrObject
-    }).then(function() {
-      location.reload();
     });
   },
   getTasks: function() {
@@ -161,22 +153,30 @@ var refreshTasks = function(res) {
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-// var handleFormSubmit = function(event) {
-//   event.preventDefault();
+function FormSubmitTodo(event) {
+  event.preventDefault();
+  var todoObject = {
+    data: $("#inputTodoData")
+      .val()
+      .trim(),
+    priority: parseInt($("#inputTodoPriority").val()),
+    userId: userId
+  };
 
-//   var taskObject = {
-//     text: $exampleText.val().trim(),
-//     description: $exampleDescription.val().trim()
-//   };
+  if (!(todoObject.data && todoObject.priority)) {
+    alert("You must enter a To-Do item and Priority!");
+    return;
+  }
 
-//   if (!(taskObject.text && taskObject.description)) {
-//     alert("You must enter an example text and description!");
-//     return;
-//   }
+  $("#inputTodoData").val("");
+  $("#inputToDoPriority").val("");
+  console.log(todoObject);
+  API.saveToDo(todoObject);
+}
 
-//   API.saveExample(example).then(function() {
-//     refreshTasks();
-//   });
+$("#inputTodoSubmit").on("click", function(event) {
+  FormSubmitTodo(event);
+});
 
 //   $exampleText.val("");
 //   $exampleDescription.val("");
