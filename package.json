@@ -21,6 +21,7 @@
     "express-session": "^1.15.6",
     "materialize-css": "^1.0.0-rc.2",
     "mysql2": "^1.5.3",
+    "path": "^0.12.7",
     "sequelize": "^4.38.0"
   },
   "devDependencies": {

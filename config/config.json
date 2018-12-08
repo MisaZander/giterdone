@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "guest",
-    "password": "guest",
+    "username": "root",
+    "password": "password",
     "database": "giterdone",
     "host": "localhost",
     "dialect": "mysql",
