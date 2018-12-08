@@ -112,6 +112,7 @@ module.exports = function(app) {
 
   app.post("/api/todos", function(req, res) {
     if (!req.body.userId) {
+      console.log(req.body.userId);
       console.log("No userId set in this todo POST request");
       res.status(400).end("userId missing or invalid");
       return;
