@@ -299,6 +299,7 @@ module.exports = function(app) {
     });
 
     app.delete("/api/todos", function(req, res) {
+      console.log(req.body);
       db.Todo.destroy({
         where: {
           id: req.body.id
