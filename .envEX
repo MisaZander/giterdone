@@ -1,0 +1,11 @@
+# Environment
+NODE_ENV=development
+
+# DB Connection
+DB_USERNAME=username
+DB_PASSWORD=password
+DB_DATABASE=database
+DB_HOST=localhost
+
+# Sequelize Options
+DB_FORCE=false
