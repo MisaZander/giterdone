@@ -37,6 +37,8 @@ var API = {
       data: {
         id: deleteID
       }
+    }).then(function() {
+      refreshTasks();
     });
   }
 };
@@ -46,6 +48,7 @@ var refreshTasks = function() {
   API.getTasks().then(function(res) {
     console.log(res);
     var $todoTable = $("<table>");
+    $("#todos").empty();
     $todoTable.attr("id", "todoTable");
     for (var i = 0; i < res.todos.length; i++) {
       var tRow = $("<tr>");
@@ -232,7 +235,7 @@ var DeleteBtnClick = function(deleteID) {
   console.log(deleteID);
 
   API.deleteTodo(deleteID).then(function() {
-    location.reload();
+    refreshTasks();
   });
 };
 $(document).on("click", ".todoDelete", function() {
