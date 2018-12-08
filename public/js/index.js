@@ -73,7 +73,7 @@ var refreshTasks = function(res) {
     var $td = $("<td>");
     var $data = $("<p>");
     $data.text("Item " + (i + 1) + ": " + res.todos[i].data);
-    $data.attr("id", "itemId" + i);
+    //$data.attr("id", "itemId" + i);
     if (res.todos[i].complete) {
       $data.css("text-decoration", "line-through");
       $data.attr("data-newComplete", "false");
@@ -98,13 +98,15 @@ var refreshTasks = function(res) {
     var tRow = $("<tr>");
     //creates complete button
     var $buttonComplete = $("<button>");
-    $buttonComplete.attr("id", "complete" + i).text("Complete");
+    //$buttonComplete.attr("id", "complete" + i).text("Complete");
+    $buttonComplete.attr("data-id", res.errands[i].id);
+    $buttonComplete.attr("class", "errandComplete").text("Complete");
     tRow.append($buttonComplete);
     //creates list item
     var $td = $("<td>");
     var $data = $("<p>");
     $data.text("Item " + (i + 1) + ": " + res.errands[i].data);
-    $data.attr("id", "itemId" + i);
+    //$data.attr("id", "itemId" + i);
     if (res.errands[i].complete) {
       $data.css("text-decoration", "line-through");
       $data.attr("data-newComplete", "false");
@@ -115,7 +117,9 @@ var refreshTasks = function(res) {
     tRow.append($td);
     //create delete button
     var $buttonDelete = $("<button>");
-    $buttonDelete.attr("id", "close" + i).text("ｘ");
+    //$buttonDelete.attr("id", "close" + i).text("ｘ");
+    $buttonDelete.attr("data-id", res.errands[i].id);
+    $buttonDelete.attr("class", "errandDelete").text("ｘ");
     tRow.append($buttonDelete);
     $errTable.append(tRow);
   }
@@ -127,13 +131,15 @@ var refreshTasks = function(res) {
     var tRow = $("<tr>");
     //creates complete button
     var $buttonComplete = $("<button>");
-    $buttonComplete.attr("id", "complete" + i).text("Complete");
+    //$buttonComplete.attr("id", "complete" + i).text("Complete");
+    $buttonComplete.attr("data-id", res.correspondence[i].id);
+    $buttonComplete.attr("class", "corrComplete").text("Complete");
     tRow.append($buttonComplete);
     //creates list item
     var $td = $("<td>");
     var $data = $("<p>");
-    $data.text("Item " + (i + 1) + ": " + res.correrspondence[i].data);
-    $data.attr("id", "itemId" + i);
+    $data.text("Item " + (i + 1) + ": " + res.correspondence[i].data);
+    //$data.attr("id", "itemId" + i);
     if (res.correspondence[i].complete) {
       $data.css("text-decoration", "line-through");
       $data.attr("data-newComplete", "false");
@@ -144,7 +150,9 @@ var refreshTasks = function(res) {
     tRow.append($td);
     //create delete button
     var $buttonDelete = $("<button>");
-    $buttonDelete.attr("id", "close" + i).text("ｘ");
+    //$buttonDelete.attr("id", "close" + i).text("ｘ");
+    $buttonDelete.attr("data-id", res.correspondence[i].id);
+    $buttonDelete.attr("class", "corrDelete").text("ｘ");
     tRow.append($buttonDelete);
     $corrTable.append(tRow);
   }
