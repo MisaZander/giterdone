@@ -12,22 +12,16 @@ var API = {
     });
   },
   saveErrand: function(errandObject) {
-    this.errandObject.userId = userId;
+    // this.errandObject.userId = userId;
     $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
       url: "api/errands",
       data: errandObject
     });
   },
   saveCorr: function(corrObject) {
-    this.corrObject.userId = userId;
+    // this.corrObject.userId = userId;
     $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
       type: "POST",
       url: "api/correspondence",
       data: corrObject
@@ -176,6 +170,59 @@ function FormSubmitTodo(event) {
 
 $("#inputTodoSubmit").on("click", function(event) {
   FormSubmitTodo(event);
+});
+
+function FormSubmitErrand(event) {
+  event.preventDefault();
+  var errandObject = {
+    data: $("#inputErrandData")
+      .val()
+      .trim(),
+    where: "WE NEED A FORM",
+    priority: parseInt($("#inputErrandPriority").val()),
+    userId: userId
+  };
+
+  if (!(errandObject.data && errandObject.priority)) {
+    alert("You must enter an Errand and Priority!");
+    return;
+  }
+
+  $("#inputErrandData").val("");
+  $("#inputErrandPriority").val("");
+  console.log(errandObject);
+  API.saveErrand(errandObject);
+}
+
+$("#inputErrandSubmit").on("click", function(event) {
+  FormSubmitErrand(event);
+});
+
+function FormSubmitCorr(event) {
+  event.preventDefault();
+  var corrObject = {
+    data: $("#inputCorrData")
+      .val()
+      .trim(),
+    who: "WE NEED A FORM",
+    whenever: true,
+    priority: parseInt($("#inputCorrPriority").val()),
+    userId: userId
+  };
+
+  if (!(corrObject.data && corrObject.priority)) {
+    alert("You must enter a Correspondence, Person and Priority!");
+    return;
+  }
+
+  $("#inputCorrData").val("");
+  $("#inputCorrPriority").val("");
+  console.log(corrObject);
+  API.saveCorr(corrObject);
+}
+
+$("#inputCorrSubmit").on("click", function(event) {
+  FormSubmitCorr(event);
 });
 
 //   $exampleText.val("");
