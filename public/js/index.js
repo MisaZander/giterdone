@@ -1,4 +1,4 @@
-var userId = $("#container").data("userId") || 1;
+var userId = parseInt($("#all-mother").data("userid")) || 0;
 
 // The API object contains methods for each kind of request we'll make
 var API = {

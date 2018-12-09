@@ -13,7 +13,7 @@ module.exports = function(app) {
           //console.log("No session stored. Next!");
           return next();
         } else {
-          //console.log("You session userID is: " + dbData.userId);
+          console.log("You session userID is: " + dbData.userId);
           req.session.userId = dbData.userId;
           return res.render("index", {
             userId: dbData.userId
@@ -23,9 +23,8 @@ module.exports = function(app) {
     },
     function(req, res) {
       //First visit
-      return res.render("index", {
-        userId: 0
-      });
+      //Force a reload on first visit to properly store the userId in the browser after refresh
+      return res.redirect("/");
     }
   );
 };
