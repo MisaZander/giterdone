@@ -55,7 +55,12 @@ var refreshTasks = function() {
       //create complete button
       var $buttonComplete = $("<button>");
       $buttonComplete.attr("data-id", res.todos[i].id);
-      $buttonComplete.attr("class", "todoComplete").text("Complete");
+      $buttonComplete
+        .attr(
+          "class",
+          "btn waves-effect waves-light green accent-4 todoComplete"
+        )
+        .html("<i class='material-icons green accent-4'>done</i> Complete");
       tRow.append($buttonComplete);
       //creates list item
       var $td = $("<td>");

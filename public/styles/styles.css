@@ -21,6 +21,9 @@ body, html{
   background-color:hotpink;
   color: rebeccapurple;
 }
+.todoComplete .errandComplete .corrComplete {
+  background-color: inherit;
+}
 .btn:hover{
   background-color: teal;
 }
