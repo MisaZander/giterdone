@@ -46,7 +46,7 @@ var API = {
 // refreshTasks takes the response from the db and creates our tables, then it fills them in
 var refreshTasks = function() {
   API.getTasks().then(function(res) {
-    console.log(res);
+    //console.log(res);
     var $todoTable = $("<table>");
     $("#todos").empty();
     $todoTable.attr("id", "todoTable");
@@ -176,17 +176,20 @@ function FormSubmitErrand(event) {
     data: $("#inputErrandData")
       .val()
       .trim(),
-    where: "WE NEED A FORM",
+    where: $("#inputErrandWhere")
+      .val()
+      .trim(),
     priority: parseInt($("#inputErrandPriority").val()),
     userId: userId
   };
 
-  if (!(errandObject.data && errandObject.priority)) {
+  if (!(errandObject.data && errandObject.priority && errandObject.where)) {
     alert("You must enter an Errand and Priority!");
     return;
   }
 
   $("#inputErrandData").val("");
+  $("#inputErrandWhere").val("");
   $("#inputErrandPriority").val("");
   console.log(errandObject);
   API.saveErrand(errandObject);
@@ -202,17 +205,20 @@ function FormSubmitCorr(event) {
     data: $("#inputCorrData")
       .val()
       .trim(),
-    who: "WE NEED A FORM",
+    who: $("#inputCorrWho")
+      .val()
+      .trim(),
     priority: parseInt($("#inputCorrPriority").val()),
     userId: userId
   };
 
-  if (!(corrObject.data && corrObject.priority)) {
+  if (!(corrObject.data && corrObject.priority && corrObject.who)) {
     alert("You must enter a Correspondence, Person and Priority!");
     return;
   }
 
   $("#inputCorrData").val("");
+  $("#inputCorrWho").val("");
   $("#inputCorrPriority").val("");
   console.log(corrObject);
   API.saveCorr(corrObject);
@@ -262,4 +268,4 @@ $(document).on("click", ".todoDelete", function() {
 
 // // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
-// $exampleList.on("click", ".delete", handleDeleteBtnClick) 
+// $exampleList.on("click", ".delete", handleDeleteBtnClick)
