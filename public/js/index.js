@@ -104,25 +104,33 @@ var refreshTasks = function() {
     $($todoTable).append("</tbody>");
     $("#todos").prepend($todoTable);
 
+    //ERRANDS TABLE
     var $errTable = $("<table>");
-    $errTable.attr("id", "errandsTable");
-    $errTable.attr("class", "striped");
+    $($errTable).attr("id", "errandsTable");
+    $($errTable).attr("class", "striped");
+    $($errTable).append(
+      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
+    );
+    $($errTable).append("<tbody>");
     for (var i = 0; i < res.errands.length; i++) {
       var tRow = $("<tr>");
       //creates complete button
       var $buttonComplete = $("<button>");
-      $buttonComplete.attr("data-id", res.errands[i].id);
-      $buttonComplete
+      $($buttonComplete).attr("data-id", res.errands[i].id);
+      $($buttonComplete)
         .attr(
           "class",
           "btn waves-effect waves-light green accent-4 errandComplete"
         )
         .html("<i class='material-icons green accent-4'>done</i> Complete");
-      tRow.append($buttonComplete);
+      var $td = $("<td>");
+      $($td).attr("class", "smallcell");
+      $($td).append($buttonComplete);
+      $(tRow).append($td);
       //creates list item
       var $td = $("<td>");
       var $data = $("<p>");
-      $data.text("Item " + (i + 1) + ": " + res.errands[i].data);
+      $($data).text("Item " + (i + 1) + ": " + res.errands[i].data);
       if (res.errands[i].complete) {
         $($data).css("text-decoration", "line-through");
         $($data).attr("data-newComplete", "false");
@@ -133,16 +141,21 @@ var refreshTasks = function() {
       $(tRow).append($td);
       //create delete button
       var $buttonDelete = $("<button>");
-      $buttonDelete.attr("data-id", res.errands[i].id);
-      $buttonDelete
+      $($buttonDelete).attr("data-id", res.errands[i].id);
+      $($buttonDelete)
         .attr("class", "btn waves-effect waves-light red accent-4 errandDelete")
         .html(
           "<i class='material-icons red accent-4'>delete_forever</i> Delete"
         );
-      tRow.append($buttonDelete);
-      $errTable.append(tRow);
+      var $td = $("<td>");
+      $($td).attr("class", "smallcell");
+      $($td).append($buttonDelete);
+      $(tRow).append($td);
+      $($errTable).append(tRow);
     }
     $("#errands").prepend($errTable);
+
+    //CORR TABLE
     var $corrTable = $("<table>");
     $corrTable.attr("id", "corrTable");
     $corrTable.attr("class", "striped");
