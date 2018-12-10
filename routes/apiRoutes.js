@@ -9,7 +9,7 @@ module.exports = function(app) {
       where: {
         userId: req.params.userId
       },
-      order: [["priority", "DESC"]]
+      order: [["complete", "ASC"], ["priority", "DESC"]]
     }).then(function(todoResult) {
       //var data = {};
       if (todoResult === null || todoResult === undefined) {
@@ -23,7 +23,7 @@ module.exports = function(app) {
           where: {
             userId: req.params.userId
           },
-          order: [["priority", "DESC"]]
+          order: [["complete", "ASC"], ["priority", "DESC"]]
         })
           .then(function(errandResult) {
             if (errandResult === null || errandResult === undefined) {
@@ -49,7 +49,7 @@ module.exports = function(app) {
                       where: {
                         userId: req.params.userId
                       },
-                      order: [["priority", "DESC"]]
+                      order: [["complete", "ASC"], ["priority", "DESC"]]
                     })
                       .then(function(corrResult) {
                         if (corrResult === null || corrResult === undefined) {
@@ -160,7 +160,7 @@ module.exports = function(app) {
       }
       db.Todo.update(
         {
-          complete: req.body.newComplete ? true : false
+          complete: req.body.newComplete === "true" ? true : false
         },
         {
           where: {
@@ -188,7 +188,7 @@ module.exports = function(app) {
       }
       db.Errand.update(
         {
-          complete: req.body.newComplete ? true : false
+          complete: req.body.newComplete === "true" ? true : false
         },
         {
           where: {
@@ -216,7 +216,7 @@ module.exports = function(app) {
       }
       db.Corr.update(
         {
-          complete: req.body.newComplete ? true : false
+          complete: req.body.newComplete === "true" ? true : false
         },
         {
           where: {

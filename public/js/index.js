@@ -30,12 +30,24 @@ var API = {
       type: "GET"
     });
   },
-  deleteTodo: function(deleteID) {
+  completeItem: function(id, newcomplete, endpoint) {
     return $.ajax({
-      url: "api/todos/",
+      url: "api/" + endpoint,
+      type: "PUT",
+      data: {
+        id: id,
+        newComplete: newcomplete
+      }
+    }).then(function() {
+      refreshTasks();
+    });
+  },
+  deleteItem: function(id, endpoint) {
+    return $.ajax({
+      url: "api/" + endpoint,
       type: "DELETE",
       data: {
-        id: deleteID
+        id: id
       }
     }).then(function() {
       refreshTasks();
@@ -291,7 +303,7 @@ function FormSubmitTodo(event) {
   }
 
   $("#inputTodoData").val("");
-  $("#inputToDoPriority").val("");
+  $("#inputToDoPriority").val("2");
   console.log(todoObject);
   API.saveToDo(todoObject);
 }
@@ -320,7 +332,7 @@ function FormSubmitErrand(event) {
 
   $("#inputErrandData").val("");
   $("#inputErrandWhere").val("");
-  $("#inputErrandPriority").val("");
+  $("#inputErrandPriority").val("2");
   console.log(errandObject);
   API.saveErrand(errandObject);
 }
@@ -349,7 +361,7 @@ function FormSubmitCorr(event) {
 
   $("#inputCorrData").val("");
   $("#inputCorrWho").val("");
-  $("#inputCorrPriority").val("");
+  $("#inputCorrPriority").val("2");
   console.log(corrObject);
   API.saveCorr(corrObject);
 }
@@ -368,16 +380,39 @@ $(document).ready(function() {
   refreshTasks();
 });
 
-var DeleteBtnClick = function(deleteID) {
-  console.log(deleteID);
+//Complete button listeners
+$(document).on("click", ".todoComplete", function() {
+  var id = $(this).attr("data-id");
+  var newcomplete = $(this).attr("data-newcomplete");
+  API.completeItem(id, newcomplete, "todos");
+});
 
-  API.deleteTodo(deleteID).then(function() {
-    refreshTasks();
-  });
-};
+$(document).on("click", ".errandComplete", function() {
+  var id = $(this).attr("data-id");
+  var newcomplete = $(this).attr("data-newcomplete");
+  API.completeItem(id, newcomplete, "errands");
+});
+
+$(document).on("click", ".corrComplete", function() {
+  var id = $(this).attr("data-id");
+  var newcomplete = $(this).attr("data-newcomplete");
+  API.completeItem(id, newcomplete, "corrs");
+});
+
+//Delete button listeners
 $(document).on("click", ".todoDelete", function() {
-  var deleteID = $(this).attr("data-id");
-  DeleteBtnClick(deleteID);
+  var id = $(this).attr("data-id");
+  API.deleteItem(id, "todos");
+});
+
+$(document).on("click", ".errandDelete", function() {
+  var id = $(this).attr("data-id");
+  API.deleteItem(id, "errands");
+});
+
+$(document).on("click", ".corrDelete", function() {
+  var id = $(this).attr("data-id");
+  API.deleteItem(id, "corrs");
 });
 //THIS IS A CODE BANK; STICK EM UP
 //   $exampleText.val("");
