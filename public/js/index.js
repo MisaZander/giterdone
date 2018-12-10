@@ -46,200 +46,209 @@ var API = {
 // refreshTasks takes the response from the db and creates our tables, then it fills them in
 var refreshTasks = function() {
   API.getTasks().then(function(res) {
-    //console.log(res);
-    var $todoTable = $("<table>");
     $("#todos").empty();
-    $($todoTable).attr("id", "todoTable");
-    $($todoTable).attr("class", "striped");
-    $($todoTable).append(
-      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
-    );
-    $($todoTable).append("<tbody>");
-    for (var i = 0; i < res.todos.length; i++) {
-      var $tRow = $("<tr>");
-      //create complete button
-      var $buttonComplete = $("<button>");
-      var $td = $("<td>");
-      $($td).attr("class", "smallcell");
-      $($buttonComplete).attr("data-id", res.todos[i].id);
-      if (res.todos[i].complete) {
-        $($buttonComplete).attr("data-newcomplete", "false");
-      } else {
-        $($buttonComplete).attr("data-newcomplete", "true");
-      }
-      $($buttonComplete)
-        .attr(
-          "class",
-          "btn waves-effect waves-light green accent-4 todoComplete"
-        )
-        .html("<i class='material-icons green accent-4'>done</i> Complete");
-      $($td).append($buttonComplete);
-      $($tRow).append($td);
-      //$($tRow).append($buttonComplete);
-      //$($tRow).append("</td>");
-      //creates list item
-      var $td = $("<td>");
-      var $data = $("<p>");
-      $($data).text("Item " + (i + 1) + ": " + res.todos[i].data);
-      if (res.todos[i].complete) {
-        $($data).css("text-decoration", "line-through");
-      }
-      $($td).append($data);
-      //var tRow2 = $("<tr>");
-      $($tRow).append($td);
-      //creates a delete button
-      var $buttonDelete = $("<button>");
-      $($buttonDelete).attr("data-id", res.todos[i].id);
-      $($buttonDelete)
-        .attr("class", "btn waves-effect waves-light red accent-4 todoDelete")
-        .html(
-          "<i class='material-icons red accent-4'>delete_forever</i> Delete"
-        );
-      //var tRow3 = $("<tr>");
-      var $td = $("<td>");
-      $($td).attr("class", "smallcell");
-      $($td).append($buttonDelete);
-      $($tRow).append($td);
+    //Only execute table build if there exists at least one item
+    if (res.todos.length > 0) {
+      var $todoTable = $("<table>");
+      $($todoTable).attr("id", "todoTable");
+      $($todoTable).attr("class", "striped");
+      $($todoTable).append(
+        "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
+      );
+      $($todoTable).append("<tbody>");
+      for (var i = 0; i < res.todos.length; i++) {
+        var $tRow = $("<tr>");
+        //create complete button
+        var $buttonComplete = $("<button>");
+        var $td = $("<td>");
+        $($td).attr("class", "smallcell");
+        $($buttonComplete).attr("data-id", res.todos[i].id);
+        if (res.todos[i].complete) {
+          $($buttonComplete).attr("data-newcomplete", "false");
+        } else {
+          $($buttonComplete).attr("data-newcomplete", "true");
+        }
+        $($buttonComplete)
+          .attr(
+            "class",
+            "btn waves-effect waves-light green accent-4 todoComplete"
+          )
+          .html("<i class='material-icons green accent-4'>done</i> Complete");
+        $($td).append($buttonComplete);
+        $($tRow).append($td);
+        //$($tRow).append($buttonComplete);
+        //$($tRow).append("</td>");
+        //creates list item
+        var $td = $("<td>");
+        var $data = $("<p>");
+        $($data).text("Item " + (i + 1) + ": " + res.todos[i].data);
+        if (res.todos[i].complete) {
+          $($data).css("text-decoration", "line-through");
+        }
+        $($td).append($data);
+        //var tRow2 = $("<tr>");
+        $($tRow).append($td);
+        //creates a delete button
+        var $buttonDelete = $("<button>");
+        $($buttonDelete).attr("data-id", res.todos[i].id);
+        $($buttonDelete)
+          .attr("class", "btn waves-effect waves-light red accent-4 todoDelete")
+          .html(
+            "<i class='material-icons red accent-4'>delete_forever</i> Delete"
+          );
+        //var tRow3 = $("<tr>");
+        var $td = $("<td>");
+        $($td).attr("class", "smallcell");
+        $($td).append($buttonDelete);
+        $($tRow).append($td);
 
-      $($todoTable).append($tRow);
+        $($todoTable).append($tRow);
+      }
+      $($todoTable).append("</tbody>");
+      $("#todos").append("<h3>TO-DO LIST</h3>");
+      $("#todos").append($todoTable);
     }
-    $($todoTable).append("</tbody>");
-    $("#todos").append("<h3>TO-DO LIST</h3>");
-    $("#todos").append($todoTable);
 
     //ERRANDS TABLE
-    var $errTable = $("<table>");
     $("#errands").empty();
-    $($errTable).attr("id", "errandsTable");
-    $($errTable).attr("class", "striped");
-    $($errTable).append(
-      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Location</th><th class='smallcell'>Delete</th></tr></thead>"
-    );
-    $($errTable).append("<tbody>");
-    for (var i = 0; i < res.errands.length; i++) {
-      var $tRow = $("<tr>");
-      //creates complete button
-      var $buttonComplete = $("<button>");
-      $($buttonComplete).attr("data-id", res.errands[i].id);
-      if (res.errands[i].complete) {
-        $($buttonComplete).attr("data-newcomplete", "false");
-      } else {
-        $($buttonComplete).attr("data-newcomplete", "true");
+    if (res.errands.length > 0) {
+      var $errTable = $("<table>");
+      $($errTable).attr("id", "errandsTable");
+      $($errTable).attr("class", "striped");
+      $($errTable).append(
+        "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Location</th><th class='smallcell'>Delete</th></tr></thead>"
+      );
+      $($errTable).append("<tbody>");
+      for (var i = 0; i < res.errands.length; i++) {
+        var $tRow = $("<tr>");
+        //creates complete button
+        var $buttonComplete = $("<button>");
+        $($buttonComplete).attr("data-id", res.errands[i].id);
+        if (res.errands[i].complete) {
+          $($buttonComplete).attr("data-newcomplete", "false");
+        } else {
+          $($buttonComplete).attr("data-newcomplete", "true");
+        }
+        $($buttonComplete)
+          .attr(
+            "class",
+            "btn waves-effect waves-light green accent-4 errandComplete"
+          )
+          .html("<i class='material-icons green accent-4'>done</i> Complete");
+        var $td = $("<td>");
+        $($td).attr("class", "smallcell");
+        $($td).append($buttonComplete);
+        $($tRow).append($td);
+        //creates list item for data
+        var $td = $("<td>");
+        var $data = $("<p>");
+        $($data).text("Item " + (i + 1) + ": " + res.errands[i].data);
+        if (res.errands[i].complete) {
+          $($data).css("text-decoration", "line-through");
+        }
+        $($td).append($data);
+        $($tRow).append($td);
+        //Create list item for where
+        var $td = $("<td>");
+        var $data = $("<p>");
+        $($data).text(res.errands[i].where);
+        $($td).attr("class", "medcell");
+        if (res.errands[i].complete) {
+          $($data).css("text-decoration", "line-through");
+        }
+        $($td).append($data);
+        $($tRow).append($td);
+        //create delete button
+        var $buttonDelete = $("<button>");
+        $($buttonDelete).attr("data-id", res.errands[i].id);
+        $($buttonDelete)
+          .attr(
+            "class",
+            "btn waves-effect waves-light red accent-4 errandDelete"
+          )
+          .html(
+            "<i class='material-icons red accent-4'>delete_forever</i> Delete"
+          );
+        var $td = $("<td>");
+        $($td).attr("class", "smallcell");
+        $($td).append($buttonDelete);
+        $($tRow).append($td);
+        $($errTable).append($tRow);
       }
-      $($buttonComplete)
-        .attr(
-          "class",
-          "btn waves-effect waves-light green accent-4 errandComplete"
-        )
-        .html("<i class='material-icons green accent-4'>done</i> Complete");
-      var $td = $("<td>");
-      $($td).attr("class", "smallcell");
-      $($td).append($buttonComplete);
-      $($tRow).append($td);
-      //creates list item for data
-      var $td = $("<td>");
-      var $data = $("<p>");
-      $($data).text("Item " + (i + 1) + ": " + res.errands[i].data);
-      if (res.errands[i].complete) {
-        $($data).css("text-decoration", "line-through");
-      }
-      $($td).append($data);
-      $($tRow).append($td);
-      //Create list item for where
-      var $td = $("<td>");
-      var $data = $("<p>");
-      $($data).text(res.errands[i].where);
-      $($td).attr("class", "medcell");
-      if (res.errands[i].complete) {
-        $($data).css("text-decoration", "line-through");
-      }
-      $($td).append($data);
-      $($tRow).append($td);
-      //create delete button
-      var $buttonDelete = $("<button>");
-      $($buttonDelete).attr("data-id", res.errands[i].id);
-      $($buttonDelete)
-        .attr("class", "btn waves-effect waves-light red accent-4 errandDelete")
-        .html(
-          "<i class='material-icons red accent-4'>delete_forever</i> Delete"
-        );
-      var $td = $("<td>");
-      $($td).attr("class", "smallcell");
-      $($td).append($buttonDelete);
-      $($tRow).append($td);
-      $($errTable).append($tRow);
+      $("#errands").append("<h3>ERRANDS</h3>");
+      $("#errands").append($errTable);
     }
-    $("#errands").append("<h3>ERRANDS</h3>");
-    $("#errands").append($errTable);
 
     //CORR TABLE
-    var $corrTable = $("<table>");
     $("#correspondences").empty();
-    $corrTable.attr("id", "corrTable");
-    $corrTable.attr("class", "striped");
-    $($corrTable).append(
-      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Who With</th><th class='smallcell'>Delete</th></tr></thead>"
-    );
-    $($corrTable).append("<tbody>");
-    for (var i = 0; i < res.correspondence.length; i++) {
-      var $tRow = $("<tr>");
-      //creates complete button
-      var $buttonComplete = $("<button>");
-      //$buttonComplete.attr("id", "complete" + i).text("Complete");
-      $($buttonComplete).attr("data-id", res.correspondence[i].id);
-      if (res.correspondence[i].complete) {
-        $($buttonComplete).attr("data-newcomplete", "false");
-      } else {
-        $($buttonComplete).attr("data-newcomplete", "true");
-      }
-      $($buttonComplete)
-        .attr(
-          "class",
-          "btn waves-effect waves-light green accent-4 corrComplete"
-        )
-        .html("<i class='material-icons green accent-4'>done</i> Complete");
-      var $td = $("<td>");
-      $($td).attr("class", "smallcell");
-      $($td).append($buttonComplete);
-      $($tRow).append($td);
-      //creates list item
-      var $td = $("<td>");
-      var $data = $("<p>");
-      $($data).text("Item " + (i + 1) + ": " + res.correspondence[i].data);
-      //$data.attr("id", "itemId" + i);
-      if (res.correspondence[i].complete) {
-        $($data).css("text-decoration", "line-through");
-      }
-      $($td).append($data);
-      $($tRow).append($td);
+    if (res.correspondence.length > 0) {
+      var $corrTable = $("<table>");
+      $corrTable.attr("id", "corrTable");
+      $corrTable.attr("class", "striped");
+      $($corrTable).append(
+        "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Who With</th><th class='smallcell'>Delete</th></tr></thead>"
+      );
+      $($corrTable).append("<tbody>");
+      for (var i = 0; i < res.correspondence.length; i++) {
+        var $tRow = $("<tr>");
+        //creates complete button
+        var $buttonComplete = $("<button>");
+        //$buttonComplete.attr("id", "complete" + i).text("Complete");
+        $($buttonComplete).attr("data-id", res.correspondence[i].id);
+        if (res.correspondence[i].complete) {
+          $($buttonComplete).attr("data-newcomplete", "false");
+        } else {
+          $($buttonComplete).attr("data-newcomplete", "true");
+        }
+        $($buttonComplete)
+          .attr(
+            "class",
+            "btn waves-effect waves-light green accent-4 corrComplete"
+          )
+          .html("<i class='material-icons green accent-4'>done</i> Complete");
+        var $td = $("<td>");
+        $($td).attr("class", "smallcell");
+        $($td).append($buttonComplete);
+        $($tRow).append($td);
+        //creates list item
+        var $td = $("<td>");
+        var $data = $("<p>");
+        $($data).text("Item " + (i + 1) + ": " + res.correspondence[i].data);
+        //$data.attr("id", "itemId" + i);
+        if (res.correspondence[i].complete) {
+          $($data).css("text-decoration", "line-through");
+        }
+        $($td).append($data);
+        $($tRow).append($td);
 
-      //Create list item for who
-      var $td = $("<td>");
-      var $data = $("<p>");
-      $($data).text(res.correspondence[i].who);
-      $($td).attr("class", "medcell");
-      if (res.correspondence[i].complete) {
-        $($data).css("text-decoration", "line-through");
+        //Create list item for who
+        var $td = $("<td>");
+        var $data = $("<p>");
+        $($data).text(res.correspondence[i].who);
+        $($td).attr("class", "medcell");
+        if (res.correspondence[i].complete) {
+          $($data).css("text-decoration", "line-through");
+        }
+        $($td).append($data);
+        $($tRow).append($td);
+        //create delete button
+        var $buttonDelete = $("<button>");
+        //$buttonDelete.attr("id", "close" + i).text("ｘ");
+        $($buttonDelete).attr("data-id", res.correspondence[i].id);
+        $($buttonDelete)
+          .attr("class", "btn waves-effect waves-light red accent-4 corrDelete")
+          .html(
+            "<i class='material-icons red accent-4'>delete_forever</i> Delete"
+          );
+        var $td = $("<td>");
+        $($td).attr("class", "smallcell");
+        $($td).append($buttonDelete);
+        $($tRow).append($td);
+        $($corrTable).append($tRow);
       }
-      $($td).append($data);
-      $($tRow).append($td);
-      //create delete button
-      var $buttonDelete = $("<button>");
-      //$buttonDelete.attr("id", "close" + i).text("ｘ");
-      $($buttonDelete).attr("data-id", res.correspondence[i].id);
-      $($buttonDelete)
-        .attr("class", "btn waves-effect waves-light red accent-4 corrDelete")
-        .html(
-          "<i class='material-icons red accent-4'>delete_forever</i> Delete"
-        );
-      var $td = $("<td>");
-      $($td).attr("class", "smallcell");
-      $($td).append($buttonDelete);
-      $($tRow).append($td);
-      $($corrTable).append($tRow);
+      $("#correspondences").append("<h3>CORRESPONDENCE</h3>");
+      $("#correspondences").append($corrTable);
     }
-    $("#correspondences").append("<h3>CORRESPONDENCE</h3>");
-    $("#correspondences").append($corrTable);
   });
 };
 
