@@ -109,6 +109,7 @@ var refreshTasks = function() {
 
     //ERRANDS TABLE
     var $errTable = $("<table>");
+    $("#errands").empty();
     $($errTable).attr("id", "errandsTable");
     $($errTable).attr("class", "striped");
     $($errTable).append(
@@ -173,6 +174,7 @@ var refreshTasks = function() {
 
     //CORR TABLE
     var $corrTable = $("<table>");
+    $("#correspondences").empty();
     $corrTable.attr("id", "corrTable");
     $corrTable.attr("class", "striped");
     $($corrTable).append(
