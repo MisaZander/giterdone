@@ -56,7 +56,7 @@ var refreshTasks = function() {
     );
     $($todoTable).append("<tbody>");
     for (var i = 0; i < res.todos.length; i++) {
-      var tRow = $("<tr>");
+      var $tRow = $("<tr>");
       //create complete button
       var $buttonComplete = $("<button>");
       var $td = $("<td>");
@@ -69,9 +69,9 @@ var refreshTasks = function() {
         )
         .html("<i class='material-icons green accent-4'>done</i> Complete");
       $($td).append($buttonComplete);
-      $(tRow).append($td);
-      //$(tRow).append($buttonComplete);
-      //$(tRow).append("</td>");
+      $($tRow).append($td);
+      //$($tRow).append($buttonComplete);
+      //$($tRow).append("</td>");
       //creates list item
       var $td = $("<td>");
       var $data = $("<p>");
@@ -84,7 +84,7 @@ var refreshTasks = function() {
       }
       $($td).append($data);
       //var tRow2 = $("<tr>");
-      $(tRow).append($td);
+      $($tRow).append($td);
       //creates a delete button
       var $buttonDelete = $("<button>");
       $($buttonDelete).attr("data-id", res.todos[i].id);
@@ -97,9 +97,9 @@ var refreshTasks = function() {
       var $td = $("<td>");
       $($td).attr("class", "smallcell");
       $($td).append($buttonDelete);
-      $(tRow).append($td);
+      $($tRow).append($td);
 
-      $($todoTable).append(tRow);
+      $($todoTable).append($tRow);
     }
     $($todoTable).append("</tbody>");
     $("#todos").prepend($todoTable);
@@ -113,7 +113,7 @@ var refreshTasks = function() {
     );
     $($errTable).append("<tbody>");
     for (var i = 0; i < res.errands.length; i++) {
-      var tRow = $("<tr>");
+      var $tRow = $("<tr>");
       //creates complete button
       var $buttonComplete = $("<button>");
       $($buttonComplete).attr("data-id", res.errands[i].id);
@@ -126,7 +126,7 @@ var refreshTasks = function() {
       var $td = $("<td>");
       $($td).attr("class", "smallcell");
       $($td).append($buttonComplete);
-      $(tRow).append($td);
+      $($tRow).append($td);
       //creates list item
       var $td = $("<td>");
       var $data = $("<p>");
@@ -138,7 +138,7 @@ var refreshTasks = function() {
         $($data).attr("data-newComplete", "true");
       }
       $($td).append($data);
-      $(tRow).append($td);
+      $($tRow).append($td);
       //create delete button
       var $buttonDelete = $("<button>");
       $($buttonDelete).attr("data-id", res.errands[i].id);
@@ -150,8 +150,8 @@ var refreshTasks = function() {
       var $td = $("<td>");
       $($td).attr("class", "smallcell");
       $($td).append($buttonDelete);
-      $(tRow).append($td);
-      $($errTable).append(tRow);
+      $($tRow).append($td);
+      $($errTable).append($tRow);
     }
     $("#errands").prepend($errTable);
 
@@ -159,43 +159,53 @@ var refreshTasks = function() {
     var $corrTable = $("<table>");
     $corrTable.attr("id", "corrTable");
     $corrTable.attr("class", "striped");
+    $($corrTable).append(
+      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
+    );
+    $($corrTable).append("<tbody>");
     for (var i = 0; i < res.correspondence.length; i++) {
-      var tRow = $("<tr>");
+      var $tRow = $("<tr>");
       //creates complete button
       var $buttonComplete = $("<button>");
       //$buttonComplete.attr("id", "complete" + i).text("Complete");
-      $buttonComplete.attr("data-id", res.correspondence[i].id);
-      $buttonComplete
+      $($buttonComplete).attr("data-id", res.correspondence[i].id);
+      $($buttonComplete)
         .attr(
           "class",
           "btn waves-effect waves-light green accent-4 corrComplete"
         )
         .html("<i class='material-icons green accent-4'>done</i> Complete");
-      tRow.append($buttonComplete);
+      var $td = $("<td>");
+      $($td).attr("class", "smallcell");
+      $($td).append($buttonComplete);
+      $($tRow).append($td);
       //creates list item
       var $td = $("<td>");
       var $data = $("<p>");
-      $data.text("Item " + (i + 1) + ": " + res.correspondence[i].data);
+      $($data).text("Item " + (i + 1) + ": " + res.correspondence[i].data);
       //$data.attr("id", "itemId" + i);
       if (res.correspondence[i].complete) {
-        $data.css("text-decoration", "line-through");
-        $data.attr("data-newComplete", "false");
+        $($data).css("text-decoration", "line-through");
+        $($data).attr("data-newComplete", "false");
       } else {
-        $data.attr("data-newComplete", "true");
+        $($data).attr("data-newComplete", "true");
       }
-      $td.append($data);
-      tRow.append($td);
+      $($td).append($data);
+      $($tRow).append($td);
       //create delete button
       var $buttonDelete = $("<button>");
       //$buttonDelete.attr("id", "close" + i).text("ｘ");
-      $buttonDelete.attr("data-id", res.correspondence[i].id);
-      $buttonDelete
+      $($buttonDelete).attr("data-id", res.correspondence[i].id);
+      $($buttonDelete)
         .attr("class", "btn waves-effect waves-light red accent-4 corrDelete")
         .html(
           "<i class='material-icons red accent-4'>delete_forever</i> Delete"
         );
-      tRow.append($buttonDelete);
-      $corrTable.append(tRow);
+      var $td = $("<td>");
+      $($td).attr("class", "smallcell");
+      $($td).append($buttonDelete);
+      $($tRow).append($td);
+      $($corrTable).append($tRow);
     }
     $("#correspondences").prepend($corrTable);
   });
