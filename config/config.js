@@ -26,7 +26,7 @@ module.exports = {
     }
   },
   production: {
-    useEnvVariable: process.env.JAWSDB_URL,
+    remoteDB: process.env.JAWSDB_URL,
     dialect: "mysql"
   }
 };
