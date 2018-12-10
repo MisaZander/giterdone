@@ -47,6 +47,7 @@ var API = {
 var refreshTasks = function() {
   API.getTasks().then(function(res) {
     $("#todos").empty();
+    $("#todos").append("<h3>TO-DO LIST</h3>");
     //Only execute table build if there exists at least one item
     if (res.todos.length > 0) {
       var $todoTable = $("<table>");
@@ -105,12 +106,12 @@ var refreshTasks = function() {
         $($todoTable).append($tRow);
       }
       $($todoTable).append("</tbody>");
-      $("#todos").append("<h3>TO-DO LIST</h3>");
       $("#todos").append($todoTable);
     }
 
     //ERRANDS TABLE
     $("#errands").empty();
+    $("#errands").append("<h3>ERRANDS</h3>");
     if (res.errands.length > 0) {
       var $errTable = $("<table>");
       $($errTable).attr("id", "errandsTable");
@@ -175,12 +176,12 @@ var refreshTasks = function() {
         $($tRow).append($td);
         $($errTable).append($tRow);
       }
-      $("#errands").append("<h3>ERRANDS</h3>");
       $("#errands").append($errTable);
     }
 
     //CORR TABLE
     $("#correspondences").empty();
+    $("#correspondences").append("<h3>CORRESPONDENCE</h3>");
     if (res.correspondence.length > 0) {
       var $corrTable = $("<table>");
       $corrTable.attr("id", "corrTable");
@@ -246,7 +247,6 @@ var refreshTasks = function() {
         $($tRow).append($td);
         $($corrTable).append($tRow);
       }
-      $("#correspondences").append("<h3>CORRESPONDENCE</h3>");
       $("#correspondences").append($corrTable);
     }
   });
