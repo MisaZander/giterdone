@@ -50,9 +50,9 @@ var refreshTasks = function() {
     var $todoTable = $("<table>");
     $("#todos").empty();
     $($todoTable).attr("id", "todoTable");
-    $($todoTable).attr("class", "striped centered");
+    $($todoTable).attr("class", "striped");
     $($todoTable).append(
-      "<thead><tr><th>Complete</th><th>Description</th><th>Delete</th></tr></thead>"
+      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
     );
     $($todoTable).append("<tbody>");
     for (var i = 0; i < res.todos.length; i++) {
@@ -60,6 +60,7 @@ var refreshTasks = function() {
       //create complete button
       var $buttonComplete = $("<button>");
       var $td = $("<td>");
+      $($td).attr("class", "smallcell");
       $($buttonComplete).attr("data-id", res.todos[i].id);
       $($buttonComplete)
         .attr(
@@ -94,6 +95,7 @@ var refreshTasks = function() {
         );
       //var tRow3 = $("<tr>");
       var $td = $("<td>");
+      $($td).attr("class", "smallcell");
       $($td).append($buttonDelete);
       $(tRow).append($td);
 

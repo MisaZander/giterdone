@@ -39,3 +39,10 @@ i.material-icons {
 #inputTodoSubmit{
   background-color: rgb(33, 105, 33);
 }
+.smallcell {
+  width: 15%;
+}
+th {
+  text-emphasis: bold;
+  text-decoration: underline;
+}
