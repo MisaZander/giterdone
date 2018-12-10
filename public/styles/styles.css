@@ -5,6 +5,7 @@ body, html{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 .nav-wrapper{
  background-color: #965FA9;
@@ -41,6 +42,9 @@ i.material-icons {
 }
 .smallcell {
   width: 15%;
+}
+.medcell {
+  width: 25%
 }
 th {
   text-emphasis: bold;

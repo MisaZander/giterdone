@@ -62,6 +62,11 @@ var refreshTasks = function() {
       var $td = $("<td>");
       $($td).attr("class", "smallcell");
       $($buttonComplete).attr("data-id", res.todos[i].id);
+      if (res.todos[i].complete) {
+        $($buttonComplete).attr("data-newcomplete", "false");
+      } else {
+        $($buttonComplete).attr("data-newcomplete", "true");
+      }
       $($buttonComplete)
         .attr(
           "class",
@@ -78,9 +83,6 @@ var refreshTasks = function() {
       $($data).text("Item " + (i + 1) + ": " + res.todos[i].data);
       if (res.todos[i].complete) {
         $($data).css("text-decoration", "line-through");
-        $($data).attr("data-newComplete", "false");
-      } else {
-        $($data).attr("data-newComplete", "true");
       }
       $($td).append($data);
       //var tRow2 = $("<tr>");
@@ -102,14 +104,15 @@ var refreshTasks = function() {
       $($todoTable).append($tRow);
     }
     $($todoTable).append("</tbody>");
-    $("#todos").prepend($todoTable);
+    $("#todos").append("<h3>TO-DO LIST</h3>");
+    $("#todos").append($todoTable);
 
     //ERRANDS TABLE
     var $errTable = $("<table>");
     $($errTable).attr("id", "errandsTable");
     $($errTable).attr("class", "striped");
     $($errTable).append(
-      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
+      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Location</th><th class='smallcell'>Delete</th></tr></thead>"
     );
     $($errTable).append("<tbody>");
     for (var i = 0; i < res.errands.length; i++) {
@@ -117,6 +120,11 @@ var refreshTasks = function() {
       //creates complete button
       var $buttonComplete = $("<button>");
       $($buttonComplete).attr("data-id", res.errands[i].id);
+      if (res.errands[i].complete) {
+        $($buttonComplete).attr("data-newcomplete", "false");
+      } else {
+        $($buttonComplete).attr("data-newcomplete", "true");
+      }
       $($buttonComplete)
         .attr(
           "class",
@@ -127,15 +135,22 @@ var refreshTasks = function() {
       $($td).attr("class", "smallcell");
       $($td).append($buttonComplete);
       $($tRow).append($td);
-      //creates list item
+      //creates list item for data
       var $td = $("<td>");
       var $data = $("<p>");
       $($data).text("Item " + (i + 1) + ": " + res.errands[i].data);
       if (res.errands[i].complete) {
         $($data).css("text-decoration", "line-through");
-        $($data).attr("data-newComplete", "false");
-      } else {
-        $($data).attr("data-newComplete", "true");
+      }
+      $($td).append($data);
+      $($tRow).append($td);
+      //Create list item for where
+      var $td = $("<td>");
+      var $data = $("<p>");
+      $($data).text(res.errands[i].where);
+      $($td).attr("class", "medcell");
+      if (res.errands[i].complete) {
+        $($data).css("text-decoration", "line-through");
       }
       $($td).append($data);
       $($tRow).append($td);
@@ -153,14 +168,15 @@ var refreshTasks = function() {
       $($tRow).append($td);
       $($errTable).append($tRow);
     }
-    $("#errands").prepend($errTable);
+    $("#errands").append("<h3>ERRANDS</h3>");
+    $("#errands").append($errTable);
 
     //CORR TABLE
     var $corrTable = $("<table>");
     $corrTable.attr("id", "corrTable");
     $corrTable.attr("class", "striped");
     $($corrTable).append(
-      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
+      "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Who With</th><th class='smallcell'>Delete</th></tr></thead>"
     );
     $($corrTable).append("<tbody>");
     for (var i = 0; i < res.correspondence.length; i++) {
@@ -169,6 +185,11 @@ var refreshTasks = function() {
       var $buttonComplete = $("<button>");
       //$buttonComplete.attr("id", "complete" + i).text("Complete");
       $($buttonComplete).attr("data-id", res.correspondence[i].id);
+      if (res.correspondence[i].complete) {
+        $($buttonComplete).attr("data-newcomplete", "false");
+      } else {
+        $($buttonComplete).attr("data-newcomplete", "true");
+      }
       $($buttonComplete)
         .attr(
           "class",
@@ -186,9 +207,17 @@ var refreshTasks = function() {
       //$data.attr("id", "itemId" + i);
       if (res.correspondence[i].complete) {
         $($data).css("text-decoration", "line-through");
-        $($data).attr("data-newComplete", "false");
-      } else {
-        $($data).attr("data-newComplete", "true");
+      }
+      $($td).append($data);
+      $($tRow).append($td);
+
+      //Create list item for who
+      var $td = $("<td>");
+      var $data = $("<p>");
+      $($data).text(res.correspondence[i].who);
+      $($td).attr("class", "medcell");
+      if (res.correspondence[i].complete) {
+        $($data).css("text-decoration", "line-through");
       }
       $($td).append($data);
       $($tRow).append($td);
@@ -207,7 +236,8 @@ var refreshTasks = function() {
       $($tRow).append($td);
       $($corrTable).append($tRow);
     }
-    $("#correspondences").prepend($corrTable);
+    $("#correspondences").append("<h3>CORRESPONDENCE</h3>");
+    $("#correspondences").append($corrTable);
   });
 };
 
