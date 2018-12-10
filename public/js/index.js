@@ -54,7 +54,7 @@ var refreshTasks = function() {
       $($todoTable).attr("id", "todoTable");
       $($todoTable).attr("class", "striped");
       $($todoTable).append(
-        "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
+        "<thead><tr><th class='smallcell'>Complete</th><th class='tinycell'></th><th>Description</th><th class='smallcell'>Delete</th></tr></thead>"
       );
       $($todoTable).append("<tbody>");
       for (var i = 0; i < res.todos.length; i++) {
@@ -77,8 +77,13 @@ var refreshTasks = function() {
           .html("<i class='material-icons green accent-4'>done</i> Complete");
         $($td).append($buttonComplete);
         $($tRow).append($td);
-        //$($tRow).append($buttonComplete);
-        //$($tRow).append("</td>");
+        var $td = $("<td>");
+        if (res.todos[i].priority === 3) {
+          $($td).html("<i class='material-icons red'>priority_high</i> ");
+        } else if (res.todos[i].priority === 1) {
+          $($td).html("<i class='material-icons white'>remove</i>");
+        }
+        $($tRow).append($td);
         //creates list item
         var $td = $("<td>");
         var $data = $("<p>");
@@ -117,7 +122,7 @@ var refreshTasks = function() {
       $($errTable).attr("id", "errandsTable");
       $($errTable).attr("class", "striped");
       $($errTable).append(
-        "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Location</th><th class='smallcell'>Delete</th></tr></thead>"
+        "<thead><tr><th class='smallcell'>Complete</th><th class='tinycell'></th><th>Description</th><th class='medcell'>Location</th><th class='smallcell'>Delete</th></tr></thead>"
       );
       $($errTable).append("<tbody>");
       for (var i = 0; i < res.errands.length; i++) {
@@ -139,6 +144,14 @@ var refreshTasks = function() {
         var $td = $("<td>");
         $($td).attr("class", "smallcell");
         $($td).append($buttonComplete);
+        $($tRow).append($td);
+        $($tRow).append($td);
+        var $td = $("<td>");
+        if (res.errands[i].priority === 3) {
+          $($td).html("<i class='material-icons red'>priority_high</i> ");
+        } else if (res.errands[i].priority === 1) {
+          $($td).html("<i class='material-icons white'>remove</i>");
+        }
         $($tRow).append($td);
         //creates list item for data
         var $td = $("<td>");
@@ -187,7 +200,7 @@ var refreshTasks = function() {
       $corrTable.attr("id", "corrTable");
       $corrTable.attr("class", "striped");
       $($corrTable).append(
-        "<thead><tr><th class='smallcell'>Complete</th><th>Description</th><th class='medcell'>Who With</th><th class='smallcell'>Delete</th></tr></thead>"
+        "<thead><tr><th class='smallcell'>Complete</th><th class='tinycell'></th><th>Description</th><th class='medcell'>Who With</th><th class='smallcell'>Delete</th></tr></thead>"
       );
       $($corrTable).append("<tbody>");
       for (var i = 0; i < res.correspondence.length; i++) {
@@ -210,6 +223,14 @@ var refreshTasks = function() {
         var $td = $("<td>");
         $($td).attr("class", "smallcell");
         $($td).append($buttonComplete);
+        $($tRow).append($td);
+        $($tRow).append($td);
+        var $td = $("<td>");
+        if (res.correspondence[i].priority === 3) {
+          $($td).html("<i class='material-icons red'>priority_high</i> ");
+        } else if (res.correspondence[i].priority === 1) {
+          $($td).html("<i class='material-icons white'>remove</i>");
+        }
         $($tRow).append($td);
         //creates list item
         var $td = $("<td>");

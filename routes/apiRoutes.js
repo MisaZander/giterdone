@@ -8,7 +8,8 @@ module.exports = function(app) {
     db.Todo.findAll({
       where: {
         userId: req.params.userId
-      }
+      },
+      order: [["priority", "DESC"]]
     }).then(function(todoResult) {
       //var data = {};
       if (todoResult === null || todoResult === undefined) {
@@ -21,7 +22,8 @@ module.exports = function(app) {
         db.Errand.findAll({
           where: {
             userId: req.params.userId
-          }
+          },
+          order: [["priority", "DESC"]]
         })
           .then(function(errandResult) {
             if (errandResult === null || errandResult === undefined) {
@@ -46,7 +48,8 @@ module.exports = function(app) {
                     db.Corr.findAll({
                       where: {
                         userId: req.params.userId
-                      }
+                      },
+                      order: [["priority", "DESC"]]
                     })
                       .then(function(corrResult) {
                         if (corrResult === null || corrResult === undefined) {
