@@ -25,6 +25,10 @@ module.exports = {
       socketPath: "/var/run/mysqld/mysqld.sock"
     }
   },
+  staging: {
+    remoteDB: process.env.JAWSDB_URL,
+    dialect: "mysql"
+  },
   production: {
     remoteDB: process.env.JAWSDB_URL,
     dialect: "mysql"
