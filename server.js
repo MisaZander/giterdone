@@ -14,18 +14,20 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //Set session expiry based on environment
-var expiration;
+var expiration, interval;
 if (process.env.NODE_ENV === "staging") {
   expiration = 30 * 60 * 1000; //30min
+  interval = 5 * 60 * 1000; //Every 5 min
 } else {
   expiration = 48 * 60 * 60 * 1000; //48 hours
+  interval = 15 * 60 * 1000; //Every 15 min
 }
 
 //Session stuff
 var sessionStore = new SequelizeStore({
   db: db.sequelize,
   table: "Session",
-  checkExpirationInterval: 15 * 60 * 1000, //Every 15 min
+  checkExpirationInterval: interval,
   expiration: expiration,
   extendDefaultFields: function(defaults, session) {
     return {
