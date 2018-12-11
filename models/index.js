@@ -1,4 +1,5 @@
 "use strict";
+//Sequelize's default models file
 
 var fs = require("fs");
 var path = require("path");

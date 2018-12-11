@@ -1,3 +1,4 @@
+//Initialize the session table for Sequelize
 module.exports = function(sequelize, DataTypes) {
   var Session = sequelize.define("Session", {
     userId: {
@@ -28,6 +29,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  //Tell sequelize this table has keys for the other three associated with it and to delete
+  //all rows assosiated with a user when a user is dropped
   Session.associate = function(models) {
     Session.hasMany(models.Todo, {
       foreignKey: {

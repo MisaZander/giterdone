@@ -1,3 +1,4 @@
+//Replacement for a config.json file that utilizes .env variables
 require("dotenv").config();
 
 module.exports = {

@@ -80,6 +80,7 @@ module.exports = function(app) {
       }
     });
 
+    //Post a new entry to the todo table
     app.post("/api/todos", function(req, res) {
       if (!req.body.userId) {
         console.log(req.body.userId);
@@ -104,6 +105,7 @@ module.exports = function(app) {
         });
     });
 
+    //post a new entry to the errand table
     app.post("/api/errands", function(req, res) {
       if (!req.body.userId) {
         console.log("No userId set in this errand POST request");
@@ -128,6 +130,7 @@ module.exports = function(app) {
         });
     });
 
+    //post a new entry to the corr table
     app.post("/api/corrs", function(req, res) {
       if (!req.body.userId) {
         console.log("No userId set in this corr POST request");
@@ -153,6 +156,7 @@ module.exports = function(app) {
         });
     });
 
+    //Change the complete value of a todo item
     app.put("/api/todos", function(req, res) {
       if (!req.body.id) {
         console.log("IDless PUT sent");
@@ -181,6 +185,7 @@ module.exports = function(app) {
         });
     });
 
+    //Change the complete value of an errand item
     app.put("/api/errands", function(req, res) {
       if (!req.body.id) {
         console.log("IDless PUT sent");
@@ -209,6 +214,7 @@ module.exports = function(app) {
         });
     });
 
+    //Change the complete value of a corr item
     app.put("/api/corrs", function(req, res) {
       if (!req.body.id) {
         console.log("IDless PUT sent");
@@ -237,6 +243,7 @@ module.exports = function(app) {
         });
     });
 
+    //Drop a todo item
     app.delete("/api/todos", function(req, res) {
       console.log(req.body);
       db.Todo.destroy({
@@ -252,6 +259,7 @@ module.exports = function(app) {
         });
     });
 
+    //Drop an errand item
     app.delete("/api/errands", function(req, res) {
       db.Errand.destroy({
         where: {
@@ -266,6 +274,7 @@ module.exports = function(app) {
         });
     });
 
+    //Drop a corr item
     app.delete("/api/corrs", function(req, res) {
       db.Corr.destroy({
         where: {
@@ -282,6 +291,7 @@ module.exports = function(app) {
   });
 };
 
+//Handle query errors
 function handleError(err, res) {
   if (err.errors[0].validatorName === "notEmpty") {
     console.log("A request was made with missing params.");
@@ -299,69 +309,3 @@ function handleError(err, res) {
     return res.status(500).json(err.errors);
   }
 }
-
-/*
-//Obtain all todos for a user
-    app.get("/api/todos/:userId", function(req, res) {
-      if (!req.params.userId) {
-        console.log("No userId set in this todo GET request");
-        return res.status(400).end("userId missing or invalid");
-      }
-      db.Todo.findAll({
-        where: {
-          userId: req.params.userId
-        }
-      })
-        .then(function(dbResult) {
-          if (dbResult === null || dbResult === undefined) {
-            return res.status(404).end("User not found");
-          }
-          return res.status(200).json(dbResult);
-        })
-        .catch(db.Sequelize.ValidationError, function(err) {
-          return handleError(err, res);
-        });
-    });
-
-    app.get("/api/errands/:userId", function(req, res) {
-      if (!req.body.userId) {
-        console.log("No userId set in this errand GET request");
-        return res.status(400).end("userId missing or invalid");
-      }
-      db.Errand.findAll({
-        where: {
-          userId: req.params.userId
-        }
-      })
-        .then(function(dbResult) {
-          if (dbResult === null || dbResult === undefined) {
-            return res.status(404);
-          }
-          return res.status(200).json(dbResult);
-        })
-        .catch(db.Sequelize.ValidationError, function(err) {
-          return handleError(err, res);
-        });
-    });
-
-    app.get("/api/corrs/:userId", function(req, res) {
-      if (!req.body.userId) {
-        console.log("No userId set in this corr GET request");
-        return res.status(400).end("userId missing or invalid");
-      }
-      db.Corr.findAll({
-        where: {
-          userId: req.params.userId
-        }
-      })
-        .then(function(dbResult) {
-          if (dbResult === null || dbResult === undefined) {
-            return res.status(404);
-          }
-          return res.status(200).json(dbResult);
-        })
-        .catch(db.Sequelize.ValidationError, function(err) {
-          return handleError(err, res);
-        });
-    });
-*/

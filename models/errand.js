@@ -1,3 +1,4 @@
+//Initialize the sequelize table for errands
 module.exports = function(sequelize, DataTypes) {
   var Errand = sequelize.define("Errand", {
     userId: {
@@ -31,6 +32,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  //Add a foreign key to reference the session table
   Errand.associate = function(models) {
     Errand.belongsTo(models.Session, {
       foreignKey: {

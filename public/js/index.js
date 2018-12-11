@@ -3,7 +3,7 @@ var userId = parseInt($("#all-mother").data("userid")) || 0;
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveToDo: function(toDoObject) {
-    console.log(toDoObject);
+    //console.log(toDoObject);
     $.ajax({
       type: "POST",
       url: "/api/todos",
@@ -58,6 +58,7 @@ var API = {
 // refreshTasks takes the response from the db and creates our tables, then it fills them in
 var refreshTasks = function() {
   API.getTasks().then(function(res) {
+    //Build the todo table
     $("#todos").empty();
     $("#todos").append("<h3>TO-DO LIST</h3>");
     //Only execute table build if there exists at least one item
@@ -414,23 +415,3 @@ $(document).on("click", ".corrDelete", function() {
   var id = $(this).attr("data-id");
   API.deleteItem(id, "corrs");
 });
-//THIS IS A CODE BANK; STICK EM UP
-//   $exampleText.val("");
-//   $exampleDescription.val("");
-// };
-
-// // handleDeleteBtnClick is called when an example's delete button is clicked
-// // Remove the example from the db and refresh the list
-// var handleDeleteBtnClick = function() {
-//   var idToDelete = $(this)
-//     .parent()
-//     .attr("data-id");
-
-//   API.deleteExample(idToDelete).then(function() {
-//     refreshExamples();
-//   });
-// };
-
-// // Add event listeners to the submit and delete buttons
-// $submitBtn.on("click", handleFormSubmit);
-// $exampleList.on("click", ".delete", handleDeleteBtnClick)

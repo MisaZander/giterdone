@@ -1,3 +1,4 @@
+//Initialze the todo table for sequelize
 module.exports = function(sequelize, DataTypes) {
   var Todo = sequelize.define("Todo", {
     userId: {
@@ -24,6 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  //Associate a foreign key that references the session table
   Todo.associate = function(models) {
     Todo.belongsTo(models.Session, {
       foreignKey: {

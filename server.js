@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "staging") {
   interval = 15 * 60 * 1000; //Every 15 min
 }
 
-//Session stuff
+//Setup session storage database
 var sessionStore = new SequelizeStore({
   db: db.sequelize,
   table: "Session",
@@ -38,6 +38,7 @@ var sessionStore = new SequelizeStore({
   }
 });
 
+//Signal browser to use the session
 app.use(
   session({
     name: "userSession",
@@ -49,6 +50,7 @@ app.use(
   })
 );
 
+//Use Handlebars
 var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -58,7 +60,7 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-// Starting the server, syncing our models ------------------------------------/
+// Starting the server ------------------------------------/
 db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log(
