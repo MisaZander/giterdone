@@ -1,7 +1,7 @@
 var db = require("../models");
-var path = require("path");
 
 module.exports = function(app) {
+  //Default route
   app.get(
     "/",
     function(req, res, next) {
@@ -11,22 +11,22 @@ module.exports = function(app) {
         }
       }).then(function(dbData) {
         if (dbData === null || dbData === undefined) {
-          //console.log("No session stored. Next!");
+          //Go to the next function if no user exists yet
           return next();
         } else {
           //console.log("You session userID is: " + dbData.userId);
-          req.session.userId = dbData.userId;
-          return res.sendFile(
-            path.join(__dirname, "..", "public", "html", "index.html")
-          );
+          //req.session.userId = dbData.userId;
+          //If a user already exists, send their id to the front-end
+          return res.render("index", {
+            userId: dbData.userId
+          });
         }
       });
     },
     function(req, res) {
       //First visit
-      return res.sendFile(
-        path.join(__dirname, "..", "public", "html", "index.html")
-      );
+      //Force a reload on first visit to properly store the userId in the browser after refresh
+      return res.redirect("/");
     }
   );
 };
