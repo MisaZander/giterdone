@@ -27,7 +27,10 @@ module.exports = {
   },
   staging: {
     remoteDB: process.env.JAWSDB_URL,
-    dialect: "mysql"
+    dialect: "mysql",
+    sync: {
+      force: true
+    }
   },
   production: {
     remoteDB: process.env.JAWSDB_URL,
