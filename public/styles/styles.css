@@ -1,5 +1,4 @@
 body, html{
-  background-color: #FFEE8B;
   background-image: url("../images/flower.jpg");
   height: 100%;
   background-position: center;
@@ -52,4 +51,8 @@ i.material-icons {
 th {
   text-emphasis: bold;
   text-decoration: underline;
+}
+
+#mainTitle {
+  margin-top: 30%
 }
