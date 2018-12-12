@@ -5,6 +5,7 @@ body, html{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 .nav-wrapper{
  background-color: #965FA9;
@@ -21,6 +22,9 @@ body, html{
   background-color:hotpink;
   color: rebeccapurple;
 }
+.todoComplete .errandComplete .corrComplete {
+  background-color: inherit;
+}
 .btn:hover{
   background-color: teal;
 }
@@ -35,4 +39,17 @@ i.material-icons {
 }
 #inputTodoSubmit{
   background-color: rgb(33, 105, 33);
+}
+.tinycell {
+  width: 7%;
+}
+.smallcell {
+  width: 15%;
+}
+.medcell {
+  width: 25%
+}
+th {
+  text-emphasis: bold;
+  text-decoration: underline;
 }

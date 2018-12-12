@@ -1,3 +1,4 @@
+//Initialize the Correspondence table for sequelize
 module.exports = function(sequelize, DataTypes) {
   var Corr = sequelize.define("Corr", {
     userId: {
@@ -39,12 +40,15 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  //Add a foreign key to reference the session table
   Corr.associate = function(models) {
     Corr.belongsTo(models.Session, {
       foreignKey: {
         name: "userId",
         allowNull: false
-      }
+      },
+      onDelete: "CASCADE",
+      hooks: true
     });
   };
   return Corr;

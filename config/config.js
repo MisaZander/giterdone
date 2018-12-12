@@ -1,3 +1,4 @@
+//Replacement for a config.json file that utilizes .env variables
 require("dotenv").config();
 
 module.exports = {
@@ -25,8 +26,15 @@ module.exports = {
       socketPath: "/var/run/mysqld/mysqld.sock"
     }
   },
+  staging: {
+    remoteDB: process.env.JAWSDB_URL,
+    dialect: "mysql",
+    sync: {
+      force: true
+    }
+  },
   production: {
-    useEnvVariable: process.env.JAWSDB_URL,
+    remoteDB: process.env.JAWSDB_URL,
     dialect: "mysql"
   }
 };
