@@ -60,7 +60,7 @@ var refreshTasks = function() {
   API.getTasks().then(function(res) {
     //Build the todo table
     $("#todos").empty();
-    $("#todos").append("<h3>TO-DO LIST</h3>");
+    $("#todos").append("<h5>TO-DO LIST</h5>");
     //Only execute table build if there exists at least one item
     if (res.todos.length > 0) {
       var $todoTable = $("<table>");
@@ -129,7 +129,7 @@ var refreshTasks = function() {
 
     //ERRANDS TABLE
     $("#errands").empty();
-    $("#errands").append("<h3>ERRANDS</h3>");
+    $("#errands").append("<h5>ERRANDS</h5>");
     if (res.errands.length > 0) {
       var $errTable = $("<table>");
       $($errTable).attr("id", "errandsTable");
@@ -207,7 +207,7 @@ var refreshTasks = function() {
 
     //CORR TABLE
     $("#correspondences").empty();
-    $("#correspondences").append("<h3>CORRESPONDENCE</h3>");
+    $("#correspondences").append("<h5>CORRESPONDENCE</h5>");
     if (res.correspondence.length > 0) {
       var $corrTable = $("<table>");
       $corrTable.attr("id", "corrTable");
