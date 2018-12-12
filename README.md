@@ -7,19 +7,19 @@ When you need to make a to-do list fast with little headache. This list will sav
 
 In order to get this running on your local machine there are a few steps you'll need to take before running it. 
 1. After cloning, run npm install in the home directory to install your node modules. 
-1. Create a .env folder that contains the following information
+1. Create a .env file that contains the following information
 
 ```
-Environment
+#Environment
 NODE_ENV=development
 
-DB Connection
+#DB Connection
 DB_USERNAME= *your username here*
 DB_PASSWORD=*your password here*
 DB_DATABASE=giterdone
 DB_HOST=*your host name here*
 
-Sequelize Options
+#Sequelize Options
 DB_FORCE=false
 ```
 3. You must also remember to run the schema file located in the models directory to build a database in MySQL
