@@ -18,9 +18,12 @@ var expiration, interval;
 if (process.env.NODE_ENV === "staging") {
   expiration = 5 * 60 * 1000; //5min
   interval = 5 * 60 * 1000; //Every 5 min
+} else if (process.env.NODE_ENV === "demo") {
+  expiration = 60 * 1000; //1 min
+  interval = 60 * 1000; //Every 15 min
 } else {
   expiration = 48 * 60 * 60 * 1000; //48 hours
-  interval = 15 * 60 * 1000; //Every 15 min
+  interval = 15 * 60 * 1000; //15 mins
 }
 
 //Setup session storage database
